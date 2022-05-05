@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import AuthProvider from './core/AuthProvider';
+import PrivateRoutes from './core/PrivateRoutes';
+import { createBrowserHistory } from 'history';
 
 function App() {
+
+  const defaultRedirect = "/login"
+  const history = createBrowserHistory();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router >
+        <Routes>
+          <Route element={<PrivateRoutes redirect={defaultRedirect} />} >
+            <Route exact path="/" element={<Home />} />
+          </Route>
+          <Route path="/login" element={<Login history={history} />} />
+          <Route path="/signup" element={<Signup history={history} />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
