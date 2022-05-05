@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { auth } from './base'
 
@@ -10,6 +11,8 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         auth.onAuthStateChanged(setCurrentUser)
+
+
         setLoading(false)
     }, [])
 
@@ -18,7 +21,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ currentUser }}
+            value={{ currentUser, setCurrentUser }}
         >
             {children}
         </AuthContext.Provider>

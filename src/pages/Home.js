@@ -6,14 +6,19 @@ import { auth } from '../core/base'
 import scooter_01 from '../assets/images/scooter_01.png'
 import { BsBatteryCharging, BsFillPlayFill, BsLightningCharge, BsMap, BsSpeedometer2 } from 'react-icons/bs'
 import { GiFullMotorcycleHelmet } from 'react-icons/gi'
+import { useParams } from 'react-router-dom'
 
 const Home = () => {
 
     const { currentUser } = useContext(AuthContext)
+    const params = useParams()
+
 
     // if (!currentUser) {
-    //     return <Navigate to="/login" />
+    //     return <Navigate to="/login" test={true} />
     // }
+
+    console.log(params)
 
     const handleLogOut = () => {
         auth.signOut();

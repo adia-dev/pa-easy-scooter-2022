@@ -18,6 +18,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRoutes redirect={defaultRedirect} />} >
             <Route exact path="/" element={<Home />} />
+            <Route exact path=":id" element={<Home />} />
           </Route>
           <Route path="/login" element={<Login history={history} />} />
           <Route path="/signup" element={<Signup history={history} />} />
