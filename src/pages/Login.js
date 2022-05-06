@@ -59,6 +59,7 @@ const Login = ({ history }) => {
                 //handle success
                 const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
                 setCurrentUser(user)
+                navigate("/dashboard")
 
             })
             .catch(function (error) {
@@ -92,7 +93,7 @@ const Login = ({ history }) => {
                         <span>Recent logins</span>
                         <div className="flex items-center space-x-3">
                             {recentLogins.map((user, i) => (
-                                <div className="cursor-pointer hover:scale-105 transition-all duration-150 hover:bg-gray-100 relative rounded-xl bg-white flex space-y-2 flex-col items-center w-[115px] aspect-square">
+                                <div key={user.displayName + "_" + i.toString()} className="cursor-pointer hover:scale-105 transition-all duration-150 hover:bg-gray-100 relative rounded-xl bg-white flex space-y-2 flex-col items-center w-[115px] aspect-square">
                                     <div className="absolute top-2 left-1 cursor-pointer hover:scale-110">
                                         <IoCloseCircleSharp color='#EC5A46' />
                                     </div>
@@ -112,27 +113,27 @@ const Login = ({ history }) => {
                         </div>
 
                     </div>
-                    <div class="relative flex py-5 items-center">
-                        <div class="flex-grow border-t border-gray-400"></div>
-                        <span class="flex-shrink mx-4 text-gray-400">OR</span>
-                        <div class="flex-grow border-t border-gray-400"></div>
+                    <div className="relative flex py-5 items-center">
+                        <div className="flex-grow border-t border-gray-400"></div>
+                        <span className="flex-shrink mx-4 text-gray-400">OR</span>
+                        <div className="flex-grow border-t border-gray-400"></div>
                     </div>
                     <div className="w-full bg-white rounded-2xl h-[60%] py-8 flex flex-col items-center">
                         <form onSubmit={handleLogin} className='w-[60%]  flex flex-col items-center'>
                             <div className="flex items-center justify-around space-x-14 mb-5">
                                 <div className="flex flex-col">
-                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="email" name="email" id="email" placeholder='Email' />
+                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="email" name="email" id="email" placeholder='Email' required />
                                 </div>
                                 <div className="flex flex-col">
-                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="password" name="password" id="password" placeholder='Password' />
+                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="password" name="password" id="password" placeholder='Password' required />
                                 </div>
                             </div>
-                            <div class="flex items-start mb-6 px-5 w-full justify-around">
-                                <div class="flex items-center h-5">
-                                    <input id="terms" type="checkbox" value="" class="w-6 h-6 mr-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
+                            <div className="flex items-start mb-6 px-5 w-full justify-around">
+                                <div className="flex items-center h-5">
+                                    <input id="terms" type="checkbox" value="" className="w-6 h-6 mr-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                                     <div className="">
-                                        <label for="terms" class="ml-2 text-sm font-medium text-gray-500">Remember for 30 days</label>
-                                        <p href="#" class="text-blue-600 hover:underline dark:text-blue-500 text-xs">(your profile will appear on the recent logins)</p>
+                                        <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-500">Remember for 30 days</label>
+                                        <p href="#" className="text-blue-600 hover:underline dark:text-blue-500 text-xs">(your profile will appear on the recent logins)</p>
                                     </div>
                                 </div>
                                 <div className="">
@@ -143,13 +144,13 @@ const Login = ({ history }) => {
                                 <button className='bg-[#053730] text-white w-full h-[40px] rounded-md' type="submit">Sign In</button>
                                 <button className='bg-[#EC5A46] text-white w-full h-[40px] rounded-md' type="submit">Create New Account</button>
                             </div>
-                            <div class="relative flex mt-2 items-center w-[50%]">
-                                <div class="flex-grow border-t border-gray-400"></div>
-                                <span class="flex-shrink mx-4 text-gray-400">OR</span>
-                                <div class="flex-grow border-t border-gray-400"></div>
+                            <div className="relative flex mt-2 items-center w-[50%]">
+                                <div className="flex-grow border-t border-gray-400"></div>
+                                <span className="flex-shrink mx-4 text-gray-400">OR</span>
+                                <div className="flex-grow border-t border-gray-400"></div>
                             </div>
 
-                            <div class="relative flex justify-between mt-2 items-center w-[25%]">
+                            <div className="relative flex justify-between mt-2 items-center w-[25%]">
                                 <FcGoogle size={32} />
                                 <BsFacebook size={32} color='#1977F1' />
                                 <BsTwitter size={32} color='#1DA1F1' />

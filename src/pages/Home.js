@@ -18,11 +18,9 @@ const Home = () => {
     //     return <Navigate to="/login" test={true} />
     // }
 
-    console.log(params)
+    console.log(currentUser)
 
-    const handleLogOut = () => {
-        auth.signOut();
-    }
+
 
 
     return (
@@ -95,9 +93,6 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="">
-                <button onClick={handleLogOut}>Log Out</button>
-            </div>
         </div>
     )
 }
