@@ -47,7 +47,7 @@ const Login = ({ history }) => {
     if (currentUser) {
 
         const bodyFormData = new FormData();
-        bodyFormData.append('email', currentUser.email)
+        bodyFormData.append('id', 1)
 
         axios({
             method: "post",
@@ -59,8 +59,7 @@ const Login = ({ history }) => {
                 //handle success
                 const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
                 setCurrentUser(user)
-                navigate("/dashboard")
-
+                navigate("/")
             })
             .catch(function (error) {
                 //handle error
