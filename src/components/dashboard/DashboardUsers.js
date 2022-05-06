@@ -7,11 +7,12 @@ import { GiKickScooter } from 'react-icons/gi'
 const DashboardUsers = ({ users, setUsers }) => {
 
     const deleteUser = (user_id) => {
-        let user = users.filter(user => {
-            return user.id === user_id
+        let filteredUsers = users.filter(user => {
+            return user.id !== user_id
         })
 
-        console.log(user);
+        setUsers(filteredUsers);
+        console.log(filteredUsers)
     }
 
     const profile = (user_id) => {
@@ -107,7 +108,7 @@ const DashboardUsers = ({ users, setUsers }) => {
                             <tbody>
                                 {users.map((user, i) => (
 
-                                    <tr tabIndex="0" className="focus:outline-none h-16 border border-gray-100 rounded">
+                                    <tr key={"user-" + user.id.toString()} tabIndex="0" className="focus:outline-none h-16 border border-gray-100 rounded">
                                         <td>
                                             <div className="ml-5">
                                                 <div className="bg-gray-200 rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
@@ -172,13 +173,13 @@ const DashboardUsers = ({ users, setUsers }) => {
                                         <button className="py-3 px-3 text-sm focus:outline-none leading-none text-red-700 bg-red-100 rounded">Due today at 18:00</button>
                                     </td> */}
                                         <td className="pl-4">
-                                            <button onClick={profile(user.id)} className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">Profile</button>
+                                            <button onClick={() => profile(user.id)} className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">Profile</button>
                                         </td>
                                         <td className="pl-4">
                                             <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-blue-100 rounded hover:bg-gray-200 focus:outline-none">Book</button>
                                         </td>
                                         <td className="pl-4">
-                                            <button onClick={deleteUser(user.id)} className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-red-100 rounded hover:bg-gray-200 focus:outline-none">Delete</button>
+                                            <button onClick={() => deleteUser(user.id)} className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-red-100 rounded hover:bg-gray-200 focus:outline-none">Delete</button>
                                         </td>
                                         {/* <td>
                                         <div className="relative px-5 pt-2">

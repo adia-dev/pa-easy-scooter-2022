@@ -25,6 +25,7 @@ const Header = () => {
                     <li className={styles.li}>News</li>
                     <li className={styles.li}>Contact</li>
                     <li className={styles.li}>Profile</li>
+                    <li onClick={() => navigate("/dashboard")} className={styles.li}>Dashboard (TEMP)</li>
                     <li onClick={() => navigate("/stripe")} className={styles.li}>Stripe</li>
                     <li className={styles.li}>
                         <button onClick={handleLogOut}>Log Out</button>

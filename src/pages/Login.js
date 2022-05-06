@@ -36,6 +36,7 @@ const Login = ({ history }) => {
 
         try {
             await signInWithEmailAndPassword(auth, email.value, password.value)
+            navigate("/")
         } catch (error) {
             console.error(error)
         }
@@ -44,30 +45,30 @@ const Login = ({ history }) => {
 
     const { currentUser, setCurrentUser } = useContext(AuthContext)
 
-    if (currentUser) {
+    // if (currentUser) {
 
-        const bodyFormData = new FormData();
-        bodyFormData.append('id', 1)
+    //     const bodyFormData = new FormData();
+    //     bodyFormData.append('id', 1)
 
-        axios({
-            method: "post",
-            url: "http://localhost:8888/api/users",
-            data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
-        })
-            .then(function (res) {
-                //handle success
-                const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
-                setCurrentUser(user)
-                navigate("/")
-            })
-            .catch(function (error) {
-                //handle error
+    //     axios({
+    //         method: "post",
+    //         url: "http://localhost:8888/api/users",
+    //         data: bodyFormData,
+    //         headers: { "Content-Type": "multipart/form-data" },
+    //     })
+    //         .then(function (res) {
+    //             //handle success
+    //             const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
+    //             setCurrentUser(user)
+    //             navigate("/")
+    //         })
+    //         .catch(function (error) {
+    //             //handle error
 
-                console.log(error);
-            });
+    //             console.log(error);
+    //         });
 
-    }
+    // }
 
     return (
         <div className='w-screen h-screen bg-[#F1EAE4]'>
