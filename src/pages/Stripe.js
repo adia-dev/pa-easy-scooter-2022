@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from '../components/Header'
 
 const Stripe = () => {
   return (
-    <div>Stripe</div>
+    <div>
+        <Header/>
+    </div>
   )
 }
 
