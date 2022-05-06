@@ -7,6 +7,7 @@ import AuthProvider from './core/AuthProvider';
 import PrivateRoutes from './core/PrivateRoutes';
 import Dashboard from './pages/Dashboard';
 import { createBrowserHistory } from 'history';
+import Stripe from './pages/Stripe';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           </Route>
           <Route path="/login" element={<Login history={history} />} />
           <Route path="/signup" element={<Signup history={history} />} />
+          <Route path="/stripe" element={<Stripe history={history} />} />
         </Routes>
       </Router>
     </AuthProvider>

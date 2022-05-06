@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../core/base';
 
 const Header = () => {
+
+    const navigate = useNavigate();
 
     const styles = {
         li: 'h-full text-gray-600 cursor-pointer  hover:text-orange-500 hover:scale-110 transition-all ease-in-out duration-250 '
@@ -22,6 +25,7 @@ const Header = () => {
                     <li className={styles.li}>News</li>
                     <li className={styles.li}>Contact</li>
                     <li className={styles.li}>Profile</li>
+                    <li onClick={() => navigate("/stripe")} className={styles.li}>Stripe</li>
                     <li className={styles.li}>
                         <button onClick={handleLogOut}>Log Out</button>
                     </li>
