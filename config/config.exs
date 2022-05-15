@@ -8,7 +8,8 @@
 import Config
 
 config :api,
-  ecto_repos: [Api.Repo]
+  ecto_repos: [Api.Repo],
+  generators: [binary_id: true]
 
 # Configures the endpoint
 config :api, ApiWeb.Endpoint,
