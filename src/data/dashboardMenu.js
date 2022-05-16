@@ -1,68 +1,62 @@
 
-import { GoHome } from 'react-icons/go';
-import { FaBell, FaUsers } from 'react-icons/fa';
-import { MdOutlineStore } from 'react-icons/md';
-import { GiPriceTag } from 'react-icons/gi';
-import { FcSettings } from 'react-icons/fc';
-import { GrUserAdmin } from 'react-icons/gr';
+import { GoHome, GoDashboard } from 'react-icons/go';
+import { FaUsers } from 'react-icons/fa';
+import { BiLogIn } from 'react-icons/bi';
+import { IoSettingsSharp } from 'react-icons/io5';
+import { MdOutlineSupportAgent } from 'react-icons/md';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { BsMailbox, BsBag, BsCalendarWeek } from 'react-icons/bs';
+import { RiCoupon3Line } from 'react-icons/ri';
+import { CgFileDocument } from 'react-icons/cg';
 
 export const menuData = [
     {
-        label: null,
-        menus: [
-            {
-                icon: GoHome,
-                name: "Home",
-                id: "home"
-            }
-        ]
+        icon: GoHome,
+        name: "Home"
     },
     {
-        label: "Manage",
-        menus: [
-            {
-                icon: MdOutlineStore,
-                name: "Inventory",
-                id: "inventory"
-            },
-            {
-                icon: GiPriceTag,
-                name: "Discounts and Coupon codes",
-                id: "discounts"
-            },
-
-        ]
+        icon: GoDashboard,
+        name: "Dashboard"
     },
     {
-        label: "Members",
-        menus: [
-            {
-                icon: FaUsers,
-                name: "Users",
-                id: "users"
-            },
-            {
-                icon: GrUserAdmin,
-                name: "Admin Settings",
-                id: "admin_preferences"
-            },
-
-        ]
+        icon: AiOutlineShoppingCart,
+        name: "Products"
     },
     {
-        label: "More",
-        menus: [
-            {
-                icon: FaBell,
-                name: "Notifications",
-                id: "notifications"
-            },
-            {
-                icon: FcSettings,
-                name: "Preferences",
-                id: "preferences"
-            },
+        icon: BsMailbox,
+        name: "Mailbox"
+    },
+    {
+        icon: BsBag,
+        name: "Orders"
+    },
+    {
+        icon: BsCalendarWeek,
+        name: "Planning"
+    },
+    {
+        icon: RiCoupon3Line,
+        name: "Offers / Discounts"
+    },
+    {
+        icon: CgFileDocument,
+        name: "Documents"
+    },
+    {
+        icon: FaUsers,
+        name: "Users"
+    },
+    {
+        icon: MdOutlineSupportAgent,
+        name: "Suport"
+    },
+    {
+        icon: IoSettingsSharp,
+        name: "Preferences"
+    },
+    {
+        icon: BiLogIn,
+        name: "Log out"
+    },
 
-        ]
-    }
 ]

@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-    if (loading) return <p>Loading...</p>
+    // if (loading) return <p>Loading...</p>
 
     return (
         <AuthContext.Provider

@@ -1,63 +1,50 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { StrictMode, useEffect, useState } from 'react'
+import AddUser from '../components/dashboard/AddUser'
 import DashboardLeftMenu from '../components/dashboard/DashboardLeftMenu'
-import DashboardUsers from '../components/dashboard/DashboardUsers'
+import Documents from '../components/dashboard/Documents'
 
 const Dashboard = () => {
 
-    const [users, setUsers] = useState(
-        [
-            {
-                id: 1,
-                username: "abdou_dia",
-                firstname: "Abdoulaye",
-                lastname: "Dia",
-                displayName: "Abdoulaye Dia",
-                role: "admin",
-                bookings: [
-                    {
-                        name: "Xiaomi Electric Scooter - 2022"
-                    }
-                ]
+    const [currentMenu, setCurrentMenu] = useState(3)
 
-            },
-            {
-                id: 2,
-                username: "pascal_zhou",
-                firstname: "Pascal",
-                lastname: "Zhou",
-                displayName: "Pascal Zhou",
-                role: "admin",
-                bookings: [
-                    {
-                        name: "Xiaomi Electric Scooter - 2022"
-                    }
-                ]
+    const getMenuComponent = (index) => {
+        switch (index) {
+            case 0:
+                return <AddUser />
+                break;
+            case 1:
+                return <AddUser />
+                break;
+            case 2:
+                return <AddUser />
+                break;
+            case 3:
+                return <AddUser />
+                break;
+            case 4:
+                return <AddUser />
+                break;
+            case 7:
+                return <Documents />
+                break;
 
-            },
-            {
-                id: 3,
-                username: "yann_habie",
-                firstname: "Yann",
-                lastname: "HABIE",
-                displayName: "Yann HABIE",
-                role: "admin",
-                bookings: [
-                    {
-                        name: "Xiaomi Electric Scooter - 2022"
-                    }
-                ]
-
-            }
-        ]
-    )
+            default:
+                return <AddUser />
+                break;
+        }
+    }
 
     return (
-        <div className='w-screen h-screen flex'>
-
-            <DashboardLeftMenu />
-            <DashboardUsers users={users} setUsers={setUsers} />
-
+        <div className='w-screen h-screen flex overflow-y-hidden'>
+            <div className="h-full w-2/12 shadow-lg">
+                <DashboardLeftMenu currentMenu={currentMenu} setCurrentMenu={setCurrentMenu} />
+            </div>
+            <div className="h-full w-10/12 p-5 overflow-y-scroll overflow-x-hidden">
+                {
+                    getMenuComponent(currentMenu)
+                }
+            </div>
         </div>
     )
 }
