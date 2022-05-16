@@ -3,6 +3,7 @@ import React, { StrictMode, useEffect, useState } from 'react'
 import AddUser from '../components/dashboard/AddUser'
 import DashboardLeftMenu from '../components/dashboard/DashboardLeftMenu'
 import Documents from '../components/dashboard/Documents'
+import Orders from '../components/dashboard/Orders'
 
 const Dashboard = () => {
 
@@ -12,26 +13,21 @@ const Dashboard = () => {
         switch (index) {
             case 0:
                 return <AddUser />
-                break;
             case 1:
                 return <AddUser />
-                break;
             case 2:
                 return <AddUser />
-                break;
             case 3:
                 return <AddUser />
-                break;
             case 4:
+                return <Orders />
+            case 5:
                 return <AddUser />
-                break;
             case 7:
                 return <Documents />
-                break;
 
             default:
                 return <AddUser />
-                break;
         }
     }
 

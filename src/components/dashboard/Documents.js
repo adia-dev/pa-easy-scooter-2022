@@ -105,9 +105,7 @@ const Documents = () => {
                                         <th scope="col" class="py-3 text-xs font-medium tracking-wider text-left uppercase ">
                                             Status
                                         </th>
-                                        <th scope="col" class="p-4">
-                                            <span class="sr-only">Edit</span>
-                                        </th>
+
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white cursor-pointer divide-gray-200  ">
@@ -123,9 +121,9 @@ const Documents = () => {
                                         <td class="py-4 text-sm font-medium text-gray-400 whitespace-nowrap "><span className='flex items-center justify-center text-green-800 bg-green-100 w-fit px-2 py-1 text-xs rounded-full'>Excel</span></td>
                                         <td class="py-4 text-sm font-medium text-gray-400 whitespace-nowrap ">31/05/2022 08:02</td>
                                         <td class="py-4 text-sm font-medium text-right whitespace-nowrap">
-                                            <a href="#" class="dark:text-blue-500 hover:underline">
+                                            <div class="dark:text-blue-500 ">
                                                 <span className='flex items-center justify-center text-red-800 bg-red-100 w-fit px-2 py-1 text-xs rounded-full'>New</span>
-                                            </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-100 ">
@@ -140,9 +138,9 @@ const Documents = () => {
                                         <td class="py-4 text-sm font-medium text-gray-400 whitespace-nowrap "><span className='flex items-center justify-center text-violet-800 bg-violet-100 w-fit px-2 py-1 text-xs rounded-full'>PDF</span></td>
                                         <td class="py-4 text-sm font-medium text-gray-400 whitespace-nowrap ">16/05/2022 13:14</td>
                                         <td class="py-4 text-sm font-medium text-right whitespace-nowrap">
-                                            <a href="#" class="dark:text-blue-500 hover:underline">
+                                            <div class="dark:text-blue-500 ">
                                                 <span className='flex items-center justify-center text-green-800 bg-green-100 w-fit px-2 py-1 text-xs rounded-full'>Delivered</span>
-                                            </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
