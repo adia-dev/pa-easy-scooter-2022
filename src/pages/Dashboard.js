@@ -4,10 +4,11 @@ import AddUser from '../components/dashboard/AddUser'
 import DashboardLeftMenu from '../components/dashboard/DashboardLeftMenu'
 import Documents from '../components/dashboard/Documents'
 import Orders from '../components/dashboard/Orders'
+import HeatMap from '../components/HeatMap'
 
 const Dashboard = () => {
 
-    const [currentMenu, setCurrentMenu] = useState(3)
+    const [currentMenu, setCurrentMenu] = useState(5)
 
     const getMenuComponent = (index) => {
         switch (index) {
@@ -22,7 +23,7 @@ const Dashboard = () => {
             case 4:
                 return <Orders />
             case 5:
-                return <AddUser />
+                return <HeatMap />
             case 7:
                 return <Documents />
 

@@ -9,10 +9,13 @@ import { MdDarkMode } from 'react-icons/md'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook, BsTwitter } from 'react-icons/bs'
+import ReactCountryFlag from "react-country-flag"
 
 const Login = ({ history }) => {
 
     const navigate = useNavigate()
+
+    const [locale, setLocale] = useState("fr_FR")
 
     const [recentLogins, setRecentLogins] = useState([
         {
@@ -87,6 +90,7 @@ const Login = ({ history }) => {
                     <p className='text-gray-600'>Join the world's largest community</p>
                 </div>
 
+                <ReactCountryFlag countryCode="US" />
 
                 <div className=" w-[70%] h-full mx-auto">
                     <div className="">
