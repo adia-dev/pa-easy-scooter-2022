@@ -1,14 +1,15 @@
+import { createBrowserHistory } from 'history';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import AuthProvider from './core/AuthProvider';
+import PrivateRoutes from './core/PrivateRoutes';
+import Booking from './pages/Booking';
+import Dashboard from './pages/Dashboard';
+import Dev from './pages/Dev';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import AuthProvider from './core/AuthProvider';
-import PrivateRoutes from './core/PrivateRoutes';
-import Dashboard from './pages/Dashboard';
-import { createBrowserHistory } from 'history';
 import Stripe from './pages/Stripe';
-import Dev from './pages/Dev';
 
 function App() {
 
@@ -27,7 +28,8 @@ function App() {
             <Route exact path="/dashboard" element={<Dashboard />} />
           </Route>
           <Route path="/dev" element={<Dev history={history} />} />
-          <Route path="/dev" element={<Login history={history} />} />
+          <Route path="/booking" element={<Booking history={history} />} />
+          <Route path="/login" element={<Login history={history} />} />
           <Route path="/signup" element={<Signup history={history} />} />
           <Route path="/stripe" element={<Stripe history={history} />} />
         </Routes>
