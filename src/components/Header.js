@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../core/base';
 
@@ -19,8 +18,8 @@ const Header = () => {
             </div>
             <nav>
                 <ul className='flex space-x-3'>
-                    <li className={styles.li + "font-bold text-green-500 underline "}>Accueil</li>
-                    <li className={styles.li}>Catalogue</li>
+                    <li onClick={() => navigate("/")} className={styles.li + "font-bold text-green-500 underline "}>Accueil</li>
+                    <li onClick={() => navigate("/catalogue")} className={styles.li}>Catalogue</li>
                     <li className={styles.li}>Map/Météo</li>
                     <li className={styles.li}>News</li>
                     <li className={styles.li}>Contact</li>

@@ -1,12 +1,10 @@
-import React, { useContext } from 'react'
-import { Navigate } from 'react-router'
-import Header from '../components/Header'
-import { AuthContext } from '../core/AuthProvider'
-import { auth } from '../core/base'
-import scooter_01 from '../assets/images/scooter_01.png'
+import { useContext } from 'react'
 import { BsBatteryCharging, BsFillPlayFill, BsLightningCharge, BsMap, BsSpeedometer2 } from 'react-icons/bs'
 import { GiFullMotorcycleHelmet } from 'react-icons/gi'
 import { useParams } from 'react-router-dom'
+import scooter_01 from '../assets/images/scooter_01.png'
+import Header from '../components/Header'
+import { AuthContext } from '../core/AuthProvider'
 
 const Home = () => {
 
@@ -24,7 +22,7 @@ const Home = () => {
 
 
     return (
-        <div className='w-screen h-screen bg-[#F1EAE4]'>
+        <div className='w-full h-full'>
             <Header />
             <div className=" relative w-screen h-[550px] flex justify-center items-center mt-10 ">
                 <div className="absolute w-[35%] aspect-square rounded-full bg-orange-200"></div>
