@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { StrictMode, useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddUser from '../components/dashboard/AddUser'
 import DashboardLeftMenu from '../components/dashboard/DashboardLeftMenu'
 import Documents from '../components/dashboard/Documents'
@@ -33,7 +32,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div className='w-screen h-screen flex overflow-y-hidden'>
+        <div className='w-screen h-screen flex overflow-y-hidden bg-white'>
             <div className="h-full w-2/12 shadow-lg">
                 <DashboardLeftMenu currentMenu={currentMenu} setCurrentMenu={setCurrentMenu} />
             </div>

@@ -1,4 +1,6 @@
-import { BiTrashAlt } from "react-icons/bi"
+import { BiCaretDown, BiFilter, BiTrashAlt } from "react-icons/bi"
+import { BsSearch } from "react-icons/bs"
+import { FaTimesCircle } from "react-icons/fa"
 import Header from "../components/Header"
 import MinMaxInput from "../components/MinMaxInput"
 
@@ -25,7 +27,7 @@ const Catalogue = () => {
         <div className="w-full h-full overflow-x-hidden">
             <Header />
             <div className="p-10 w-full h-full">
-                <h1 className="text-3xl font-bold border-b-2 border-black leading-[3rem]">Catalogue</h1>
+                <h1 className="text-3xl font-bold border-b border-black leading-[3rem] mb-5">Catalogue</h1>
 
                 <div className="flex w-full h-full space-x-2 ">
                     <div className="w-3/12 h-full py-2  space-y-4 ">
@@ -83,7 +85,41 @@ const Catalogue = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex-1 bg-red-400 h-full p-3 ">
+                    <div className="flex-1 h-full p-3 ">
+                        <div className="flex items-center justify-around space-x-4">
+                            <div class="relative text-gray-600 focus-within:text-gray-400 flex-1">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                                    <button type="submit" class="p-1 focus:outline-none focus:shadow-outline text-gray-400">
+                                        <BsSearch />
+                                    </button>
+                                </span>
+                                <input type="search" name="search" class="w-full py-2 text-sm text-white border bg-gray-50 border-gray-100 placeholder:text-gray-400 rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900" placeholder="Search for a scooter, helmet, gloves..." autocomplete="off" />
+                            </div>
+                            <div className="flex items-center space-x-0 flex-[0.30] group cursor-pointer">
+                                <div className="border-l border-y text-gray-400 p-3 bg-gray-50 rounded-l-md group-hover:bg-gray-100">
+                                    <BiFilter />
+                                </div>
+                                <div className="rounded-l-none rounded-r-md border flex-1 text-gray-400 py-2 px-3 group-hover:bg-gray-100 bg-gray-50 flex items-center justify-between">
+                                    <span>Popular</span>
+                                    <BiCaretDown />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center space-x-3 mt-3">
+                            <div className="flex items-center space-x-3 text-gray-600 px-2 justify-center text-sm bg-gray-200 rounded-full">
+                                <span>Xiaomi</span>
+                                <FaTimesCircle />
+                            </div>
+                            <div className="flex items-center space-x-3 text-gray-600 px-2 justify-center text-sm bg-gray-200 rounded-full">
+                                <span>Segway</span>
+                                <FaTimesCircle />
+                            </div>
+                        </div>
+
+                        <div className="flex items-center flex-wrap p-5">
+                            <div className="border rounded-md w-[275px] h-[350px] bg-red-200"></div>
+                        </div>
                     </div>
 
                 </div>

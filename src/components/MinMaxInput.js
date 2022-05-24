@@ -28,16 +28,16 @@ const MinMaxInput = ({ min, max, width = 500, height = 300 }) => {
     }
 
     return (
-        <div className={`w-[${width}px] min-h-[${height}px] bg-white p-5 rounded-xl min-max-input`}>
+        <div className={`w-[${width}px] min-h-[${height}px] bg-whitee p-5 rounded-xl min-max-input`}>
             <h1 className="font-bold pb-10">Price</h1>
             <div className="flex justify-around w-full h-full">
                 <div className="space-x-2">
                     <span>Min</span>
-                    <input onChange={handleMinInput} className="border p-1 max-w-[90px] pl-6 rounded-md" type="text" value={value.min} />
+                    <input onChange={handleMinInput} className="bg-gray-50 border-none p-1 max-w-[90px] pl-6" placeholder="min" type="number" min={min} max={max} value={value.min} />
                 </div>
                 <div className="space-x-2">
                     <span>Max</span>
-                    <input onChange={handleMaxInput} className="border p-1 max-w-[90px] pl-6 rounded-md" type="text" value={value.max} />
+                    <input onChange={handleMaxInput} className="bg-gray-50 border-none p-1 max-w-[90px] pl-6" placeholder="max" type="number" min={min} max={max} value={value.max} />
                 </div>
             </div>
             <div className="relative w-full h-[5px] rounded-md mt-3 bg-[#ddd] overflow-hidden">
