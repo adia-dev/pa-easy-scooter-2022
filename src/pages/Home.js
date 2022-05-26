@@ -1,8 +1,8 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { BsBatteryCharging, BsFillPlayFill, BsLightningCharge, BsMap, BsSpeedometer2 } from 'react-icons/bs'
 import { GiFullMotorcycleHelmet } from 'react-icons/gi'
 import { useParams } from 'react-router-dom'
-import scooter_01 from '../assets/images/scooter_01.png'
+import scooters from '../assets/dummy data/scooters'
 import Header from '../components/Header'
 import { AuthContext } from '../core/AuthProvider'
 
@@ -10,7 +10,7 @@ const Home = () => {
 
     const { currentUser } = useContext(AuthContext)
     const params = useParams()
-
+    const [displayScooter, SetdisplayScooter] = useState(scooters[0])
 
     // if (!currentUser) {
     //     return <Navigate to="/login" test={true} />
@@ -26,19 +26,18 @@ const Home = () => {
             <Header />
             <div className=" relative w-screen h-[550px] flex justify-center items-center mt-10 ">
                 <div className="absolute w-[35%] aspect-square rounded-full bg-orange-200"></div>
-                <img src={scooter_01} className='object-contain w-full h-full z-10' />
+                <img src={displayScooter.image} className='object-contain w-full h-full z-10' />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-between px-10 z-20">
 
                     <div className="w-[400px] h-full space-y-4 flex flex-col justify-around p-5">
                         <div className="flex items-center space-x-2">
                             <span className="cursor-pointer uppercase w-fit px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 ">Electric Scooter</span>
-                            <span className="cursor-pointer uppercase w-fit px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 ">Xiaomi</span>
+                            <span className="cursor-pointer uppercase w-fit px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 ">{displayScooter.brand}</span>
                             <span className="cursor-pointer uppercase w-fit px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 ">Promo</span>
                         </div>
                         <h2 className="font-semibold text-3xl text-[#c43f2d91]">Louez votre scooter élétrique facilement avec Easy Scooter</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Distinctio exercitationem sit itaque praesentium possimus odio similique accusantium atque omnis obcaecati.
+                            {displayScooter.name + " " + displayScooter.description}
                         </p>
                         <div className="flex items-center space-x-3 text-gray-600">
                             <BsFillPlayFill />

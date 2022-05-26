@@ -31,7 +31,7 @@ function App() {
               <Route exact path="/dashboard" element={<Dashboard />} />
             </Route>
             <Route path="/dev" element={<Dev history={history} />} />
-            <Route path="/booking" element={<Booking history={history} />} />
+            <Route path="/booking/:id" element={<Booking history={history} />} />
             <Route path="/login" element={<Login history={history} />} />
             <Route path="/signup" element={<Signup history={history} />} />
             <Route path="/stripe" element={<Stripe history={history} />} />

@@ -1,13 +1,24 @@
-import { BiCaretDown, BiFilter, BiTrashAlt } from "react-icons/bi"
+import { useState } from "react"
+import { BiBasket, BiCaretDown, BiCart, BiFilter, BiTrashAlt } from "react-icons/bi"
 import { BsSearch } from "react-icons/bs"
-import { FaTimesCircle } from "react-icons/fa"
+import { FaRegStar, FaStar, FaStarHalfAlt, FaTimes, FaTimesCircle } from "react-icons/fa"
+import { Link } from "react-router-dom"
+import scooters from "../assets/dummy data/scooters"
 import Header from "../components/Header"
 import MinMaxInput from "../components/MinMaxInput"
 
 const Catalogue = () => {
 
+    const [filters, Setfilters] = useState({
+        brands: [],
+        sizes: ["XS", "S", "M", "L"]
+    })
+
+    const [cartItems, setCartItems] = useState([])
+
     const brands = [
-        "Xiamo",
+        "Brandless",
+        "Xiaomi",
         "Unagi",
         "Segway",
         "Glion Dolly",
@@ -23,11 +34,50 @@ const Catalogue = () => {
         "XXL"
     ]
 
+    const applyFilters = (item) => {
+        filters.brands.includes(item.brand)
+    }
+
+    const handleBrandsFilter = (brand, e) => {
+        console.log(e.target.checked)
+        console.log(filters.brands)
+        if (e.target.checked) {
+            Setfilters({ ...sizes, brands: filters.brands.push(brand) })
+        } else {
+            const filteredBrands = filters.brands.filter((b) => b != brand)
+            console.log(filteredBrands);
+            Setfilters({ ...sizes, brands: filteredBrands })
+        }
+    }
+
+    const handleRemoveBrandFilter = (brand) => {
+        Setfilters({ ...sizes, brands: filters.brands.filter((b) => b != brand) })
+    }
+
+    const handleRemoveSizeFilter = (size) => {
+        Setfilters({ ...brands, sizes: filters.sizes.filter((s) => s != size) })
+    }
+
+    const handleAddItemToCart = (itemId) => {
+        setCartItems([...cartItems, scooters.find((scooter) => scooter.id === itemId)])
+    }
+
+    const handleRemoveItemFromCart = (itemId) => {
+        setCartItems(cartItems.filter((item) => item.id !== itemId))
+    }
+
+
     return (
         <div className="w-full h-full overflow-x-hidden">
             <Header />
             <div className="p-10 w-full h-full">
-                <h1 className="text-3xl font-bold border-b border-black leading-[3rem] mb-5">Catalogue</h1>
+                <div className="flex items-center justify-between w-full border-black border-b-2">
+                    <h1 className="text-3xl font-bold mb-2">Catalogue</h1>
+                    <div className="relative">
+                        <BiCart size={32} />
+                        <div className="absolute  rounded-full p-2 w-4 h-4 font-semibold flex justify-center items-center -top-2 right-1 bg-red-500 animate-pulse text-white text-xs ">{cartItems.length}</div>
+                    </div>
+                </div>
 
                 <div className="flex w-full h-full space-x-2 ">
                     <div className="w-3/12 h-full py-2  space-y-4 ">
@@ -35,11 +85,11 @@ const Catalogue = () => {
                         <div className="">
                             <p className="font-semibold">Brand</p>
                             <div className="overflow-y-auto max-h-[200px]">
-                                <div class="flex flex-col p-2">
+                                <div className="flex flex-col p-2">
                                     {
                                         brands.map((brand, i) => (
-                                            <label key={`brand-${i}`} class="inline-flex items-center mt-3">
-                                                <input type="checkbox" class="form-checkbox h-5 w-5 text-pink-600" /><span class="ml-2 text-gray-700">{brand}</span>
+                                            <label key={`brand-${i}`} className="inline-flex items-center mt-3">
+                                                <input type="checkbox" onClick={(e) => handleBrandsFilter(brand, e)} className="form-checkbox h-5 w-5 text-pink-600" /><span className="ml-2 text-gray-700">{brand}</span>
                                             </label>
                                         ))
                                     }
@@ -49,11 +99,11 @@ const Catalogue = () => {
                         <div className="">
                             <p className="font-semibold">Sizes</p>
                             <div className="overflow-y-auto max-h-[200px]">
-                                <div class="flex flex-col p-2">
+                                <div className="flex flex-col p-2">
                                     {
                                         sizes.map((size, i) => (
-                                            <label key={`size-${i}`} class="inline-flex items-center mt-3">
-                                                <input type="checkbox" class="form-checkbox h-5 w-5 text-purple-600" /><span class="ml-2 text-gray-700">{size}</span>
+                                            <label key={`size-${i}`} className="inline-flex items-center mt-3">
+                                                <input type="checkbox" className="form-checkbox h-5 w-5 text-purple-600" /><span className="ml-2 text-gray-700">{size}</span>
                                             </label>
                                         ))
                                     }
@@ -87,13 +137,13 @@ const Catalogue = () => {
                     </div>
                     <div className="flex-1 h-full p-3 ">
                         <div className="flex items-center justify-around space-x-4">
-                            <div class="relative text-gray-600 focus-within:text-gray-400 flex-1">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                                    <button type="submit" class="p-1 focus:outline-none focus:shadow-outline text-gray-400">
+                            <div className="relative text-gray-600 focus-within:text-gray-400 flex-1">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                                    <button type="submit" className="p-1 focus:outline-none focus:shadow-outline text-gray-400">
                                         <BsSearch />
                                     </button>
                                 </span>
-                                <input type="search" name="search" class="w-full py-2 text-sm text-white border bg-gray-50 border-gray-100 placeholder:text-gray-400 rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900" placeholder="Search for a scooter, helmet, gloves..." autocomplete="off" />
+                                <input type="search" name="search" className="w-full py-2 text-sm text-white border bg-gray-50 border-gray-100 placeholder:text-gray-400 rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900" placeholder="Search for a scooter, helmet, gloves..." autoComplete="off" />
                             </div>
                             <div className="flex items-center space-x-0 flex-[0.30] group cursor-pointer">
                                 <div className="border-l border-y text-gray-400 p-3 bg-gray-50 rounded-l-md group-hover:bg-gray-100">
@@ -107,24 +157,81 @@ const Catalogue = () => {
                         </div>
 
                         <div className="flex items-center space-x-3 mt-3">
-                            <div className="flex items-center space-x-3 text-gray-600 px-2 justify-center text-sm bg-gray-200 rounded-full">
-                                <span>Xiaomi</span>
-                                <FaTimesCircle />
-                            </div>
-                            <div className="flex items-center space-x-3 text-gray-600 px-2 justify-center text-sm bg-gray-200 rounded-full">
-                                <span>Segway</span>
-                                <FaTimesCircle />
-                            </div>
+                            {
+                                filters.brands.map((brand, i) => (
+                                    <div key={"filter-brand-" + i} className="flex items-center space-x-3 text-gray-600 px-2 justify-center text-sm bg-gray-200 rounded-full">
+                                        <span>{brand}</span>
+                                        <FaTimesCircle onClick={() => handleRemoveBrandFilter(brand)} />
+                                    </div>
+                                ))
+                            }
+                            {
+                                filters.sizes.map((size, i) => (
+                                    <div key={"filter-size-" + i} className="flex items-center space-x-3 text-purple-600 px-2 justify-center text-sm bg-purple-200 rounded-full">
+                                        <span>{size}</span>
+                                        <FaTimesCircle onClick={() => handleRemoveSizeFilter(size)} />
+                                    </div>
+                                ))
+                            }
                         </div>
 
+
                         <div className="flex items-center flex-wrap p-5">
-                            <div className="border rounded-md w-[275px] h-[350px] bg-red-200"></div>
+                            {
+                                scooters.filter((scooter) => (true || filters.brands === [] || filters.brands.includes(scooter.brand))).map((scooter, i) => (
+                                    <div key={"scooter-" + i} className="bg-white rounded-md w-[275px] min-h-[375px] mr-2 mb-2 group  hover:brightness-95 overflow-hidden">
+                                        <div className="h-[75%] border-b  ">
+                                            <img className="bg-white p-10 hover:p-7 active:p-12  object-contain rounded-md transition-all ease-in-out duration-150 cursor-pointer" src={scooter.image} alt="" />
+                                        </div>
+                                        <div className="flex-1 flex-col px-2">
+                                            <span className="text-xs text-gray-600 hover:underline cursor-pointer">Scooter ID: {scooter.id}</span>
+                                            <Link to={"/booking/" + scooter.id}><p className="cursor-pointer hover:text-orange-400 hover:underline">{scooter.name}</p></Link>
+                                            <div className="flex items-center space-x-3">
+                                                {
+                                                    [...Array(5)].map((_, i) => {
+
+
+                                                        const remainingStars = scooter.stars - (i)
+
+                                                        if (remainingStars >= 1)
+                                                            return <FaStar key={"full-star-" + i} color={"orange"} />;
+                                                        else if (remainingStars == 0.5)
+                                                            return <FaStarHalfAlt key={"half-star-" + i} color={"orange"} />;
+                                                        else
+                                                            return <FaRegStar key={"empty-star-" + i} color={"orange"} />;
+                                                    })
+                                                }
+                                                <div className="flex items-center text-blue-600">
+                                                    <BiCaretDown />
+                                                    <a className="underline" href="#avis">{scooter.feedbackCnt}</a>
+                                                </div>
+                                            </div>
+                                            <span className="text-xs text-gray-600">Price: </span>
+                                            <p className="font-semibold">{scooter.price} €</p>
+                                        </div>
+                                        {
+                                            cartItems.includes(scooter)
+                                                ?
+                                                <button onClick={() => handleRemoveItemFromCart(scooter.id)} className="bg-red-500 flex justify-center items-center space-x-2 mt-2 text-white w-full h-10 ">
+                                                    <FaTimes />
+                                                    <span>Retirer du panier</span>
+                                                </button>
+                                                :
+                                                <button onClick={() => handleAddItemToCart(scooter.id)} className="bg-black flex justify-center items-center space-x-2 mt-2 text-white w-full h-10 ">
+                                                    <BiBasket />
+                                                    <span>Ajouter au panier</span>
+                                                </button>
+                                        }
+
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
