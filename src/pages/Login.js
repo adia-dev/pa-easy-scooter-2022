@@ -1,15 +1,16 @@
 import { signInWithEmailAndPassword } from '@firebase/auth'
-import axios from 'axios'
-import React, { useCallback, useContext, useState } from 'react'
+import { browserSessionPersistence, setPersistence } from "firebase/auth"
+import { useCallback, useContext, useState } from 'react'
+import ReactCountryFlag from "react-country-flag"
+import { BiDotsVerticalRounded } from 'react-icons/bi'
+import { BsFacebook, BsTwitter } from 'react-icons/bs'
+import { FcGoogle } from 'react-icons/fc'
+import { IoAddCircleSharp, IoCloseCircleSharp, IoLanguage } from 'react-icons/io5'
+import { MdDarkMode, MdOutlineArrowBackIosNew } from 'react-icons/md'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import { AuthContext } from '../core/AuthProvider'
 import { auth } from '../core/base'
-import { IoLanguage, IoCloseCircleSharp, IoAddCircleSharp } from 'react-icons/io5'
-import { MdDarkMode } from 'react-icons/md'
-import { BiDotsVerticalRounded } from 'react-icons/bi'
-import { FcGoogle } from 'react-icons/fc'
-import { BsFacebook, BsTwitter } from 'react-icons/bs'
-import ReactCountryFlag from "react-country-flag"
 
 const Login = ({ history }) => {
 
@@ -38,6 +39,9 @@ const Login = ({ history }) => {
         const { email, password } = event.target.elements
 
         try {
+
+            await setPersistence(auth, browserSessionPersistence)
+
             await signInWithEmailAndPassword(auth, email.value, password.value)
             navigate("/")
         } catch (error) {
@@ -48,33 +52,39 @@ const Login = ({ history }) => {
 
     const { currentUser, setCurrentUser } = useContext(AuthContext)
 
-    // if (currentUser) {
+    if (currentUser) {
 
-    //     const bodyFormData = new FormData();
-    //     bodyFormData.append('id', 1)
+        navigate("/")
+        // const bodyFormData = new FormData();
+        // bodyFormData.append('id', 1)
 
-    //     axios({
-    //         method: "post",
-    //         url: "http://localhost:8888/api/users",
-    //         data: bodyFormData,
-    //         headers: { "Content-Type": "multipart/form-data" },
-    //     })
-    //         .then(function (res) {
-    //             //handle success
-    //             const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
-    //             setCurrentUser(user)
-    //             navigate("/")
-    //         })
-    //         .catch(function (error) {
-    //             //handle error
+        // axios({
+        //     method: "post",
+        //     url: "http://localhost:8888/api/users",
+        //     data: bodyFormData,
+        //     headers: { "Content-Type": "multipart/form-data" },
+        // })
+        //     .then(function (res) {
+        //         //handle success
+        //         const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
+        //         setCurrentUser(user)
+        //         navigate("/")
+        //     })
+        //     .catch(function (error) {
+        //         //handle error
 
-    //             console.log(error);
-    //         });
+        //         console.log(error);
+        //     });
 
-    // }
+    }
 
     return (
         <div className='w-screen h-screen bg-[#F1EAE4]'>
+
+            <Link to="/" className="absolute p-5 bg-gray-800 rounded-full mx-3 my-10">
+                <MdOutlineArrowBackIosNew color="white" size={24} />
+            </Link>
+
             <div className="right-5 top-10 absolute bg-white rounded-xl flex flex-col items-center overflow-hidden">
                 <div className="cursor-pointer hover:bg-gray-200 flex justify-center items-center w-[50px] aspect-square">
                     <IoLanguage />

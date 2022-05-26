@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { auth } from './base'
 
@@ -17,7 +16,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-    // if (loading) return <p>Loading...</p>
+    if (loading) return <p>Loading...</p>
 
     return (
         <AuthContext.Provider

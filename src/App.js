@@ -19,7 +19,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <div className="w-screen h-screen bg-[#F1EAE4]">
+      <div className="w-screen h-screen bg-white">
         <Router>
           <Routes>
             <Route element={<PrivateRoutes admin={false} redirect={defaultRedirect} />} >

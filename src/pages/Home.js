@@ -13,12 +13,11 @@ const Home = () => {
     const [displayScooter, SetdisplayScooter] = useState(scooters[0])
 
     // if (!currentUser) {
+    //     console.log(currentUser)
     //     return <Navigate to="/login" test={true} />
     // }
 
-    console.log(currentUser)
-
-
+    // console.log(currentUser)
 
 
     return (
@@ -35,7 +34,7 @@ const Home = () => {
                             <span className="cursor-pointer uppercase w-fit px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 ">{displayScooter.brand}</span>
                             <span className="cursor-pointer uppercase w-fit px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 ">Promo</span>
                         </div>
-                        <h2 className="font-semibold text-3xl text-[#c43f2d91]">Louez votre scooter élétrique facilement avec Easy Scooter</h2>
+                        <h2 className="font-semibold text-3xl text-[#c43f2d91]">Louez votre scooter éléctrique facilement avec Easy Scooter</h2>
                         <p>
                             {displayScooter.name + " " + displayScooter.description}
                         </p>
