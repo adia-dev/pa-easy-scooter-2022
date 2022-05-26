@@ -4,19 +4,20 @@ require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const coupons = ["FREE", "2020"];
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors());
 
 app.post("/payment", cors(), async (req, res) => {
+  console.log(req.body);
   let { amount, id } = req.body;
   try {
     const payment = await stripe.paymentIntents.create({
-      amount,
-      currency: "USD",
-      description: "Spatula company",
+      amount: coupons.includes(req.body.coupon) ? amount * 0.8 : amount,
+      currency: "EUR",
+      description: "Easy Scooter",
       payment_method: id,
       confirm: true,
     });
@@ -28,8 +29,7 @@ app.post("/payment", cors(), async (req, res) => {
   } catch (error) {
     console.log("Error", error);
     res.json({
-      message: "Payment failed",
-      success: false,
+      body: req.body,
     });
   }
 });
