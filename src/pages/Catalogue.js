@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { BiBasket, BiCaretDown, BiCart, BiFilter, BiTrashAlt } from "react-icons/bi"
+import { BiCaretDown, BiCart, BiFilter, BiTrashAlt } from "react-icons/bi"
 import { BsSearch } from "react-icons/bs"
-import { FaRegStar, FaStar, FaStarHalfAlt, FaTimes, FaTimesCircle } from "react-icons/fa"
-import { Link } from "react-router-dom"
+import { FaTimesCircle } from "react-icons/fa"
 import scooters from "../assets/dummy data/scooters"
+import Cart from "../components/catalogue/Cart"
+import ScooterItem from "../components/catalogue/ScooterItem"
 import Header from "../components/Header"
 import MinMaxInput from "../components/MinMaxInput"
 
@@ -14,7 +15,10 @@ const Catalogue = () => {
         sizes: ["XS", "S", "M", "L"]
     })
 
-    const [cartItems, setCartItems] = useState([])
+    const [cartItems, setCartItems] = useState([scooters[0]])
+    const [openedModal, setOpenedModal] = useState({
+        cart: false
+    })
 
     const brands = [
         "Brandless",
@@ -58,14 +62,16 @@ const Catalogue = () => {
         Setfilters({ ...brands, sizes: filters.sizes.filter((s) => s != size) })
     }
 
-    const handleAddItemToCart = (itemId) => {
-        setCartItems([...cartItems, scooters.find((scooter) => scooter.id === itemId)])
-    }
+    const toggleModalState = (modal) => {
+        switch (modal) {
+            case "cart":
+                setOpenedModal({ ...openedModal, cart: !openedModal.cart })
+                break;
 
-    const handleRemoveItemFromCart = (itemId) => {
-        setCartItems(cartItems.filter((item) => item.id !== itemId))
+            default:
+                break;
+        }
     }
-
 
     return (
         <div className="w-full h-full overflow-x-hidden">
@@ -74,8 +80,12 @@ const Catalogue = () => {
                 <div className="flex items-center justify-between w-full border-black border-b-2">
                     <h1 className="text-3xl font-bold mb-2">Catalogue</h1>
                     <div className="relative">
-                        <BiCart size={32} />
+                        <BiCart className="cursor-pointer" onClick={() => toggleModalState("cart")} size={32} />
                         <div className="absolute  rounded-full p-2 w-4 h-4 font-semibold flex justify-center items-center -top-2 right-1 bg-red-500 animate-pulse text-white text-xs ">{cartItems.length}</div>
+
+                        {
+                            openedModal.cart && <Cart items={cartItems} />
+                        }
                     </div>
                 </div>
 
@@ -179,51 +189,7 @@ const Catalogue = () => {
                         <div className="flex items-center flex-wrap p-5">
                             {
                                 scooters.filter((scooter) => (true || filters.brands === [] || filters.brands.includes(scooter.brand))).map((scooter, i) => (
-                                    <div key={"scooter-" + i} className="bg-white rounded-md w-[275px] min-h-[375px] mr-2 mb-2 group  hover:brightness-95 overflow-hidden">
-                                        <div className="h-[75%] border-b  ">
-                                            <img className="bg-white p-10 hover:p-7 active:p-12  object-contain rounded-md transition-all ease-in-out duration-150 cursor-pointer" src={scooter.image} alt="" />
-                                        </div>
-                                        <div className="flex-1 flex-col px-2">
-                                            <span className="text-xs text-gray-600 hover:underline cursor-pointer">Scooter ID: {scooter.id}</span>
-                                            <Link to={"/booking/" + scooter.id}><p className="cursor-pointer hover:text-orange-400 hover:underline">{scooter.name}</p></Link>
-                                            <div className="flex items-center space-x-3">
-                                                {
-                                                    [...Array(5)].map((_, i) => {
-
-
-                                                        const remainingStars = scooter.stars - (i)
-
-                                                        if (remainingStars >= 1)
-                                                            return <FaStar key={"full-star-" + i} color={"orange"} />;
-                                                        else if (remainingStars == 0.5)
-                                                            return <FaStarHalfAlt key={"half-star-" + i} color={"orange"} />;
-                                                        else
-                                                            return <FaRegStar key={"empty-star-" + i} color={"orange"} />;
-                                                    })
-                                                }
-                                                <div className="flex items-center text-blue-600">
-                                                    <BiCaretDown />
-                                                    <a className="underline" href="#avis">{scooter.feedbackCnt}</a>
-                                                </div>
-                                            </div>
-                                            <span className="text-xs text-gray-600">Price: </span>
-                                            <p className="font-semibold">{scooter.price} €</p>
-                                        </div>
-                                        {
-                                            cartItems.includes(scooter)
-                                                ?
-                                                <button onClick={() => handleRemoveItemFromCart(scooter.id)} className="bg-red-500 flex justify-center items-center space-x-2 mt-2 text-white w-full h-10 ">
-                                                    <FaTimes />
-                                                    <span>Retirer du panier</span>
-                                                </button>
-                                                :
-                                                <button onClick={() => handleAddItemToCart(scooter.id)} className="bg-black flex justify-center items-center space-x-2 mt-2 text-white w-full h-10 ">
-                                                    <BiBasket />
-                                                    <span>Ajouter au panier</span>
-                                                </button>
-                                        }
-
-                                    </div>
+                                    <ScooterItem key={"scooter-item-" + i} scooter={scooter} scooters={scooters} cartItems={cartItems} setCartItems={setCartItems} />
                                 ))
                             }
                         </div>

@@ -45,7 +45,7 @@ export default [
         image: "https://www.rueducommerce.fr/medias/950875fd9e10376aac885092a885012f/p_1000x1000/12112600432670.png",
         description: "description",
         price: 24.99,
-        quantity: 12,
+        quantity: 0,
         color: "black",
         availableSizes: ["M"],
         stars: 4.5,
