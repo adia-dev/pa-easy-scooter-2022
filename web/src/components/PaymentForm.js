@@ -33,13 +33,13 @@ export default function PaymentForm() {
       type: "card",
       card: elements.getElement(CardElement),
     });
-
     if (!error) {
       try {
         const { id } = paymentMethod;
         const response = await axios.post("http://localhost:4000/payment", {
-          amount: 1000,
+          amount: 500,
           id,
+          coupon: e.target.elements["coupon"].value,
         });
 
         if (response.data.success) {
@@ -63,14 +63,13 @@ export default function PaymentForm() {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
+          <input type="text" name="coupon" placeholder="Coupon" />
+
           <button>Pay</button>
         </form>
       ) : (
         <div>
-          <h2>
-            You just bought a sweet spatula congrats this is the best decision
-            of you're life
-          </h2>
+          <h2>Scooter rented ! Thanks for your purchase !</h2>
         </div>
       )}
     </>

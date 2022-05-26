@@ -1,20 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import spatula from "./assets/spatula.jpg";
+import scooter from "./assets/scooter_01.png";
 import StripeContainer from "./components/StripeContainer";
 
 function App() {
   const [showItem, setShowItem] = useState(false);
   return (
     <div className="App">
-      <h1>The Spatula Store</h1>
+      <h1>Easy Scooter</h1>
       {showItem ? (
         <StripeContainer />
       ) : (
         <>
-          <h3>$10.00</h3>
-          <img src={spatula} alt="Spatula" />
-          <button onClick={() => setShowItem(true)}>Purchase Spatula</button>
+          <h3>5€</h3>
+          <img class="scooter" src={scooter} alt="Scooter" />
+          <button onClick={() => setShowItem(true)}>Rent Scooter</button>
         </>
       )}
     </div>
