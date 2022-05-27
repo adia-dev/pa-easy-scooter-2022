@@ -10,6 +10,7 @@ import MinMaxInput from "../components/MinMaxInput"
 
 const Catalogue = () => {
 
+
     const [filters, Setfilters] = useState({
         brands: [],
         sizes: ["XS", "S", "M", "L"]

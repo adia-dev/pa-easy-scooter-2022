@@ -14,12 +14,9 @@ const Home = () => {
     const [displayScooter, SetdisplayScooter] = useState(scooters[0])
 
     if (!currentUser) {
-        console.log(currentUser)
+        // console.log(currentUser)
         return <Navigate to="/login" test={true} />
     }
-
-    console.log(currentUser)
-
 
     return (
         <div className='w-full h-full'>

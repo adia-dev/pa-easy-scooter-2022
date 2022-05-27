@@ -12,15 +12,15 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             setCurrentUser(user)
-            setTimeout(() => setLoading(false), 2500)
+            setLoading(false)
         })
     }, [])
 
 
-    if (!currentUser) return <div className='w-screen h-screen bg-white flex  text-3xl text-black'>
+    if (loading) return <div className='w-screen h-screen bg-white flex  text-3xl text-black'>
         {/* <video className='h-full object-contain' preload='true' src='https://cdn.dribbble.com/users/20271/screenshots/16821869/media/dab0697ac32bac2c6909f5a7bb299818.mp4' autoPlay={true} muted={true} loop={true}></video> */}
-        <div className="absolute w-full h-full flex justify-center items-center">
-            <p>LOADING...</p>
+        <div className="absolute w-full h-full flex flex-col justify-center items-center">
+            <p>LOADING</p>
             <AiOutlineLoading3Quarters className='animate-spin' />
         </div>
     </div>

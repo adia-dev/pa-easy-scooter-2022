@@ -96,7 +96,7 @@ const Header = () => {
                         </div>
 
                         {
-                            dropdownOpened &&
+                            false && dropdownOpened &&
                             <DropdownMenu />
                         }
                     </div>

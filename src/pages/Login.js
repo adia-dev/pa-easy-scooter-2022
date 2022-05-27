@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from '@firebase/auth'
 import { browserSessionPersistence, setPersistence } from "firebase/auth"
 import { useCallback, useContext, useState } from 'react'
-import ReactCountryFlag from "react-country-flag"
+import { useTranslation } from 'react-i18next'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { BsFacebook, BsTwitter } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
@@ -15,8 +15,34 @@ import { auth } from '../core/base'
 const Login = ({ history }) => {
 
     const navigate = useNavigate()
+    const { t, i18n } = useTranslation();
 
-    const [locale, setLocale] = useState("fr_FR")
+    const [languages, setLanguages] = useState([
+        {
+            value: "fr",
+            label: "French",
+            flag: "🇫🇷"
+        },
+        {
+            value: "en",
+            label: "English",
+            flag: "🇺🇸"
+        }
+    ])
+    const [openedModals, setOpenedModals] = useState({
+        languages: false
+    })
+
+    const openModal = (modal) => {
+        switch (modal) {
+            case "languages":
+                setOpenedModals({ ...openedModals, languages: !openedModals.languages })
+                break;
+
+            default:
+                break;
+        }
+    }
 
     const [recentLogins, setRecentLogins] = useState([
         {
@@ -32,6 +58,7 @@ const Login = ({ history }) => {
             displayName: "Yann HABIE"
         }
     ])
+
 
     const handleLogin = useCallback(async event => {
         event.preventDefault()
@@ -49,6 +76,10 @@ const Login = ({ history }) => {
         }
     }, [history])
 
+    const handleChangeLanguage = (language) => {
+        i18n.changeLanguage(language)
+        setOpenedModals({ ...openedModals, languages: false })
+    }
 
     const { currentUser, setCurrentUser } = useContext(AuthContext)
 
@@ -85,8 +116,20 @@ const Login = ({ history }) => {
                 <MdOutlineArrowBackIosNew color="white" size={24} />
             </Link>
 
+            {
+                openedModals.languages &&
+                (
+                    <div className="absolute w-[50px] right-10 top-20 z-20 bg-white rounded-xl shadow-md overflow-hidden">
+                        {
+                            languages.map((language, i) => (
+                                <div key={language.value} onClick={() => handleChangeLanguage(language.value)} className="flex justify-center items-center h-[50px] border-b hover:bg-gray-50 cursor-pointer">{language.flag}</div>
+                            ))
+                        }
+                    </div>
+                )
+            }
             <div className="right-5 top-10 absolute bg-white rounded-xl flex flex-col items-center overflow-hidden">
-                <div className="cursor-pointer hover:bg-gray-200 flex justify-center items-center w-[50px] aspect-square">
+                <div onClick={() => openModal("languages")} className="relative cursor-pointer hover:bg-gray-200 flex justify-center items-center w-[50px] aspect-square">
                     <IoLanguage />
                 </div>
                 <div className="w-full h-[1px] bg-gray-200"></div>
@@ -96,15 +139,14 @@ const Login = ({ history }) => {
             </div>
             <div className="w-full h-full flex flex-col items-center">
                 <div className="flex flex-col items-center py-3">
-                    <h1 className='text-[5rem]'>Welcome Back</h1>
-                    <p className='text-gray-600'>Join the world's largest community</p>
+                    <h1 className='text-[5rem]'>{t('Welcome Back !')}</h1>
+                    <p className='text-gray-600'>{t('Join the newest electric scooter community')}</p>
                 </div>
 
-                <ReactCountryFlag countryCode="US" />
 
                 <div className=" w-[70%] h-full mx-auto">
                     <div className="">
-                        <span>Recent logins</span>
+                        <span>{t('Recent logins')}</span>
                         <div className="flex items-center space-x-3">
                             {recentLogins.map((user, i) => (
                                 <div key={user.displayName + "_" + i.toString()} className="cursor-pointer hover:scale-105 transition-all duration-150 hover:bg-gray-100 relative rounded-xl bg-white flex space-y-2 flex-col items-center w-[115px] aspect-square">
@@ -122,52 +164,52 @@ const Login = ({ history }) => {
                                 <div className="relative rounded-full overflow-hidden">
                                     <IoAddCircleSharp size={67} color='#FE9384' className='z-10' />
                                 </div>
-                                <span className='text-white text-xs font-semibold'>Add an account</span>
+                                <span className='text-white text-xs font-semibold'>{t('Add an account')}</span>
                             </div>
                         </div>
 
                     </div>
                     <div className="relative flex py-5 items-center">
                         <div className="flex-grow border-t border-gray-400"></div>
-                        <span className="flex-shrink mx-4 text-gray-400">OR</span>
+                        <span className="flex-shrink mx-4 text-gray-400">{t('OR')}</span>
                         <div className="flex-grow border-t border-gray-400"></div>
                     </div>
                     <div className="w-full bg-white rounded-2xl h-[60%] py-8 flex flex-col items-center">
                         <form onSubmit={handleLogin} className='w-[60%]  flex flex-col items-center'>
                             <div className="flex items-center justify-around space-x-14 mb-5">
                                 <div className="flex flex-col">
-                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="email" name="email" id="email" placeholder='Email' required />
+                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="email" name="email" id="email" placeholder={t('Email')} required />
                                 </div>
                                 <div className="flex flex-col">
-                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="password" name="password" id="password" placeholder='Password' required />
+                                    <input className='border border-gray-300 rounded-md py-1 px-2 w-[225px]' type="password" name="password" id="password" placeholder={t('Password')} required />
                                 </div>
                             </div>
                             <div className="flex items-start mb-6 px-5 w-full justify-around">
                                 <div className="flex items-center h-5">
                                     <input id="terms" type="checkbox" value="" className="w-6 h-6 mr-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                                     <div className="">
-                                        <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-500">Remember for 30 days</label>
-                                        <p href="#" className="text-blue-600 hover:underline dark:text-blue-500 text-xs">(your profile will appear on the recent logins)</p>
+                                        <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-500">{t('Remember for 30 days')}</label>
+                                        <p href="#" className="text-blue-600 hover:underline dark:text-blue-500 text-xs">({t('your profile will appear on the recent logins')})</p>
                                     </div>
                                 </div>
                                 <div className="">
-                                    <a className='underline ' href="#">Forgot password</a>
+                                    <a className='underline whitespace-nowrap' href="#">{t('Forgot password')}</a>
                                 </div>
                             </div>
                             <div className="mt-5 flex flex-col items-center space-y-4 w-1/2">
-                                <button className='bg-[#053730] text-white w-full h-[40px] rounded-md' type="submit">Sign In</button>
-                                <button className='bg-[#EC5A46] text-white w-full h-[40px] rounded-md' type="submit">Create New Account</button>
+                                <button className='bg-[#053730] text-white w-full h-[40px] rounded-md' type="submit">{t('Sign In')}</button>
+                                <button className='bg-[#EC5A46] text-white w-full h-[40px] rounded-md' type="submit">{t('Create New Account')}</button>
                             </div>
                             <div className="relative flex mt-2 items-center w-[50%]">
                                 <div className="flex-grow border-t border-gray-400"></div>
-                                <span className="flex-shrink mx-4 text-gray-400">OR</span>
+                                <span className="flex-shrink mx-4 text-gray-400">{t('OR')}</span>
                                 <div className="flex-grow border-t border-gray-400"></div>
                             </div>
 
                             <div className="relative flex justify-between mt-2 items-center w-[25%]">
-                                <FcGoogle size={32} />
-                                <BsFacebook size={32} color='#1977F1' />
-                                <BsTwitter size={32} color='#1DA1F1' />
+                                <FcGoogle className='cursor-pointer hover:brightness-95' size={32} />
+                                <BsFacebook className='cursor-pointer hover:brightness-95' size={32} color='#1977F1' />
+                                <BsTwitter className='cursor-pointer hover:brightness-95' size={32} color='#1DA1F1' />
                             </div>
                         </form>
                     </div>

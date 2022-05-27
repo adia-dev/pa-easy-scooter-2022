@@ -17,6 +17,7 @@ function App() {
   const defaultRedirect = "/login"
   const history = createBrowserHistory();
 
+
   return (
     <AuthProvider>
       <div className="w-screen h-screen bg-white">
