@@ -24,7 +24,7 @@ const Login = ({ history }) => {
             displayName: "Abdoulaye Dia"
         },
         {
-            pfp: "https://i.pinimg.com/564x/1c/04/2d/1c042d3202695ae2b8eb1fa96eb174fb.jpg",
+            pfp: "https://i1.sndcdn.com/avatars-Pjqz7m3i6m0ey3dt-C1i2vg-t500x500.jpg",
             displayName: "Pascal Zhou"
         },
         {
