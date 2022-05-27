@@ -5,8 +5,14 @@ defmodule ApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ApiWeb do
+  scope "/api/v1", ApiWeb do
     pipe_through :api
+    resources "/vector2", Vector2Controller, except: [:new, :edit]
+    resources "/vector3", Vector3Controller, except: [:new, :edit]
+    resources "/colors", ColorController, except: [:new, :edit]
+    resources "/scooters/models", ScooterModelController, except: [:new, :edit]
+    resources "/scooters", ScooterController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
