@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react'
 import { BsBatteryCharging, BsFillPlayFill, BsLightningCharge, BsMap, BsSpeedometer2 } from 'react-icons/bs'
 import { GiFullMotorcycleHelmet } from 'react-icons/gi'
-import { useParams } from 'react-router-dom'
+import { IoFlash } from 'react-icons/io5'
+import { Navigate, useParams } from 'react-router-dom'
 import scooters from '../assets/dummy data/scooters'
 import Header from '../components/Header'
 import { AuthContext } from '../core/AuthProvider'
@@ -12,19 +13,25 @@ const Home = () => {
     const params = useParams()
     const [displayScooter, SetdisplayScooter] = useState(scooters[0])
 
-    // if (!currentUser) {
-    //     console.log(currentUser)
-    //     return <Navigate to="/login" test={true} />
-    // }
+    if (!currentUser) {
+        console.log(currentUser)
+        return <Navigate to="/login" test={true} />
+    }
 
-    // console.log(currentUser)
+    console.log(currentUser)
 
 
     return (
         <div className='w-full h-full'>
             <Header />
             <div className=" relative w-screen h-[550px] flex justify-center items-center mt-10 ">
-                <div className="absolute w-[35%] aspect-square rounded-full bg-orange-200"></div>
+                <div className="absolute w-[35%] aspect-square rounded-full bg-orange-100 overflow-hidden  flex justify-center items-center">
+                    <div className="w-full bg-blue-300 h-3/4 absolute bottom-0 left-0 animate-pulse"></div>
+                    <div className="relative">
+                        <span className='absolute w-full h-full flex justify-center items-center text-white font-bold '>90%</span>
+                        <IoFlash className=' animate-pulse' color="black" size={150} />
+                    </div>
+                </div>
                 <img src={displayScooter.image} className='object-contain w-full h-full z-10' />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-between px-10 z-20">
 
