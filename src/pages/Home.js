@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { BsBatteryCharging, BsFillPlayFill, BsLightningCharge, BsMap, BsSpeedometer2 } from 'react-icons/bs'
 import { GiFullMotorcycleHelmet } from 'react-icons/gi'
 import { IoFlash } from 'react-icons/io5'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import scooters from '../assets/dummy data/scooters'
 import Header from '../components/Header'
 import { AuthContext } from '../core/AuthProvider'
@@ -13,10 +13,11 @@ const Home = () => {
     const params = useParams()
     const [displayScooter, SetdisplayScooter] = useState(scooters[0])
 
-    if (!currentUser) {
-        // console.log(currentUser)
-        return <Navigate to="/login" test={true} />
-    }
+
+    // if (!currentUser) {
+    //     // console.log(currentUser)
+    //     return <Navigate to="/login" test={true} />
+    // }
 
     return (
         <div className='w-full h-full'>

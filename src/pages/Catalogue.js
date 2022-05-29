@@ -1,3 +1,4 @@
+import { t } from "i18next"
 import { useState } from "react"
 import { BiCaretDown, BiCart, BiFilter, BiTrashAlt } from "react-icons/bi"
 import { BsSearch } from "react-icons/bs"
@@ -83,7 +84,6 @@ const Catalogue = () => {
                     <div className="relative">
                         <BiCart className="cursor-pointer" onClick={() => toggleModalState("cart")} size={32} />
                         <div className="absolute  rounded-full p-2 w-4 h-4 font-semibold flex justify-center items-center -top-2 right-1 bg-red-500 animate-pulse text-white text-xs ">{cartItems.length}</div>
-
                         {
                             openedModal.cart && <Cart items={cartItems} />
                         }
@@ -94,7 +94,7 @@ const Catalogue = () => {
                     <div className="w-3/12 h-full py-2  space-y-4 ">
                         <MinMaxInput min={2500} max={7500} width={300} />
                         <div className="">
-                            <p className="font-semibold">Brand</p>
+                            <p className="font-semibold">{t("Brand")}</p>
                             <div className="overflow-y-auto max-h-[200px]">
                                 <div className="flex flex-col p-2">
                                     {
@@ -108,7 +108,7 @@ const Catalogue = () => {
                             </div>
                         </div>
                         <div className="">
-                            <p className="font-semibold">Sizes</p>
+                            <p className="font-semibold">{t("Sizes")}</p>
                             <div className="overflow-y-auto max-h-[200px]">
                                 <div className="flex flex-col p-2">
                                     {
@@ -140,7 +140,7 @@ const Catalogue = () => {
                             </div>
                         </div>
                         <div className="flex justify-around items-center space-x-3  pb-10">
-                            <button className="uppercase px-3 py-4 flex-1 bg-red-600 text-white hover:bg-red-800 font-semibold">Apply filters</button>
+                            <button className="uppercase px-3 py-4 flex-1 bg-red-600 text-white hover:bg-red-800 font-semibold">{t("Apply filters")}</button>
                             <div className="cursor-pointer hover:bg-gray-100 active:scale-100 active:bg-gray-200 hover:text-black hover:scale-110 transition-all duration-200 ease-in-out flex items-center justify-center w-10 aspect-square text-gray-400 bg-gray-50 border-gray-200 border rounded-full">
                                 <BiTrashAlt />
                             </div>
@@ -154,14 +154,14 @@ const Catalogue = () => {
                                         <BsSearch />
                                     </button>
                                 </span>
-                                <input type="search" name="search" className="w-full py-2 text-sm text-white border bg-gray-50 border-gray-100 placeholder:text-gray-400 rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900" placeholder="Search for a scooter, helmet, gloves..." autoComplete="off" />
+                                <input type="search" name="search" className="w-full py-2 text-sm text-white border bg-gray-50 border-gray-100 placeholder:text-gray-400 rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900" placeholder={t("Search for a scooter, helmet, gloves...")} autoComplete="off" />
                             </div>
                             <div className="flex items-center space-x-0 flex-[0.30] group cursor-pointer">
                                 <div className="border-l border-y text-gray-400 p-3 bg-gray-50 rounded-l-md group-hover:bg-gray-100">
                                     <BiFilter />
                                 </div>
                                 <div className="rounded-l-none rounded-r-md border flex-1 text-gray-400 py-2 px-3 group-hover:bg-gray-100 bg-gray-50 flex items-center justify-between">
-                                    <span>Popular</span>
+                                    <span>{t("Popular")}</span>
                                     <BiCaretDown />
                                 </div>
                             </div>

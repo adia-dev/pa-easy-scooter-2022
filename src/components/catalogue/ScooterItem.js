@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { BiBasket, BiCaretDown } from "react-icons/bi";
 import { FaRegStar, FaStar, FaStarHalfAlt, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -42,7 +43,7 @@ const ScooterItem = ({ scooter, scooters, cartItems, setCartItems }) => {
                         <a className="underline" href="#avis">{scooter.feedbackCnt}</a>
                     </div>
                 </div>
-                <span className="text-xs text-gray-600">Price: </span>
+                <span className="text-xs text-gray-600">{t("Price")}: </span>
                 <p className="font-semibold">{scooter.price} €</p>
             </div>
             {
@@ -50,12 +51,12 @@ const ScooterItem = ({ scooter, scooters, cartItems, setCartItems }) => {
                     ?
                     <button onClick={() => handleRemoveItemFromCart(scooter.id)} className="bg-red-500 flex justify-center items-center space-x-2 mt-2 text-white w-full h-10 ">
                         <FaTimes />
-                        <span>Retirer du panier</span>
+                        <span>{t("Remove from cart")}</span>
                     </button>
                     :
                     <button onClick={() => handleAddItemToCart(scooter.id)} className="bg-black flex justify-center items-center space-x-2 mt-2 text-white w-full h-10 ">
                         <BiBasket />
-                        <span>Ajouter au panier</span>
+                        <span>{t("Add to cart")}</span>
                     </button>
             }
 
