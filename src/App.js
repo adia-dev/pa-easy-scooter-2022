@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Stripe from './pages/Stripe';
+import Dashboard2 from './pages/v2/Dashboard';
 
 function App() {
 
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route element={<PrivateRoutes admin={false} redirect={"/"} />} >
               <Route exact path="/dashboard" element={<Dashboard />} />
+            </Route>
+            <Route element={<PrivateRoutes admin={false} redirect={"/"} />} >
+              <Route exact path="v2/dashboard" element={<Dashboard2 />} />
             </Route>
             <Route path="/dev" element={<Dev history={history} />} />
             <Route path="/booking/:id" element={<Booking history={history} />} />
