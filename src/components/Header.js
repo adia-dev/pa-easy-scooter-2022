@@ -6,12 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import menus from '../assets/menus';
 import { AuthContext } from '../core/AuthProvider';
 import { auth } from '../core/base';
-import DropdownMenu from './DropdownMenu';
+import DropdownMenu from './dropdown/DropdownMenu';
 
 const Header = () => {
 
     const [menu, setMenu] = useState(menus.unauthenticated)
-    const [dropdownOpened, setDropdownOpened] = useState(false)
+    const [dropdownOpened, setDropdownOpened] = useState(true)
 
     const { currentUser } = useContext(AuthContext)
 
