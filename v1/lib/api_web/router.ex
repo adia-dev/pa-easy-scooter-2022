@@ -13,6 +13,7 @@ defmodule ApiWeb.Router do
     resources "/scooters/models", ScooterModelController, except: [:new, :edit]
     resources "/scooters", ScooterController, except: [:new, :edit]
     resources "/users", UserController, except: [:new, :edit]
+    resources "/bookings", BookingController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
