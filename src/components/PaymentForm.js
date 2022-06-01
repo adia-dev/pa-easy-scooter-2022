@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React, { useState } from "react";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -66,7 +67,8 @@ export default function PaymentForm() {
           <input type="text" name="coupon" placeholder="Coupon" />
 
           <button className="absolute left-0 bottom-0 bg-blue-600 justify-center text-white w-full py-4 font-bold flex items-center space-x-5">
-            <span>PAY 5€</span>
+            <span>PAYER 5€</span>
+            <AiOutlineArrowRight size={24} />
           </button>
         </form>
       ) : (
