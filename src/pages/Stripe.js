@@ -63,11 +63,6 @@ const Stripe = () => {
           </span>
         </form> */
         }
-
-        <button className="absolute left-0 bottom-0 bg-blue-600 justify-center text-white w-full py-4 font-bold flex items-center space-x-5">
-          <span>PAY 5€</span>
-          <AiOutlineArrowRight size={24} />
-        </button>
       </div>
     </div>
   );
