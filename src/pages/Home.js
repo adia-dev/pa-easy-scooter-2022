@@ -19,6 +19,8 @@ const Home = () => {
     //     return <Navigate to="/login" test={true} />
     // }
 
+    console.log(currentUser)
+
     return (
         <div className='w-full h-full'>
             <Header />

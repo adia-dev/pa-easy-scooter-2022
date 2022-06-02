@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { auth } from './base'
+import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { auth } from './base';
 
 export const AuthContext = React.createContext()
 
@@ -12,7 +13,18 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             setCurrentUser(user)
-            setLoading(false)
+
+            const fetchUser = async () => {
+                const data = await axios.get(`http://localhost:5500/api/v2/users/firebase/${user.uid}`)
+                setCurrentUser({ ...user, data: data.data })
+                setLoading(false)
+            }
+
+            !!user ?
+                fetchUser() :
+                setLoading(false)
+
+
         })
     }, [])
 

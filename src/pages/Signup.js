@@ -1,6 +1,5 @@
-import { signInWithEmailAndPassword } from '@firebase/auth'
 import axios from 'axios'
-import { browserSessionPersistence, createUserWithEmailAndPassword, setPersistence } from "firebase/auth"
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BsFacebook, BsTwitter } from 'react-icons/bs'
@@ -9,6 +8,7 @@ import { IoLanguage } from 'react-icons/io5'
 import { MdDarkMode, MdOutlineArrowBackIosNew } from 'react-icons/md'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
+import { api } from '../config'
 import { AuthContext } from '../core/AuthProvider'
 import { auth } from '../core/base'
 
@@ -59,55 +59,38 @@ const Login = ({ history }) => {
         }
     ])
 
-
-    const handleLogin = useCallback(async event => {
-        event.preventDefault()
-
-        const { email, password } = event.target.elements
-
-        try {
-
-            await setPersistence(auth, browserSessionPersistence)
-
-            await signInWithEmailAndPassword(auth, email.value, password.value)
-            navigate("/")
-        } catch (error) {
-            console.error(error)
-        }
-    }, [history])
-
     const handleChangeLanguage = (language) => {
         i18n.changeLanguage(language)
         setOpenedModals({ ...openedModals, languages: false })
     }
 
+    console.log(api.defaultBaseURL)
+
     const handleSignup = useCallback(async event => {
         event.preventDefault()
 
         const { email, password } = event.target.elements
+        const firebaseResponse = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        console.log(firebaseResponse)
         try {
 
-            const bodyFormData = new FormData(event.target);
+            const formData = {
+                email: email.value,
+                password: password.value,
+                firebaseID: "hey"
+            }
 
-            axios({
-                method: "post",
-                url: "http://localhost:8888/api/users?id=1",
-                data: bodyFormData,
-                headers: { "Content-Type": "multipart/form-data" },
+            const response = await axios({
+                method: "POST",
+                url: (api.defaultBaseURL + "/users"),
+                data: formData,
+                headers: { "Content-Type": "application/json" },
             })
-                .then(function (response) {
-                    //handle success
-                    console.log(response);
-                })
-                .catch(function (response) {
-                    //handle error
-                    console.log(response);
-                });
+            console.log(response.data)
 
 
-            await createUserWithEmailAndPassword(auth, email.value, password.value);
 
-            navigate("/login")
+            // navigate("/login")
 
         } catch (error) {
             console.error(error)
