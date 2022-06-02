@@ -1,7 +1,38 @@
-
 import StripeContainer from ".././components/StripeContainer";
+import { useEffect, useState } from "react";
+import { BsTrash } from "react-icons/bs";
 
 const Stripe = () => {
+  const [total, setTotal] = useState(null);
+
+  const [cart, setCart] = useState([
+    {
+      id: 1,
+      name: "xiaomi",
+      price: 50,
+    },
+    {
+      id: 2,
+      name: "casque",
+      price: 10,
+    },
+  ]);
+
+  useEffect(() => {
+    const sum =
+      cart.length > 0
+        ? cart
+            .map((product) => product.price)
+            .reduce(
+              (previousValue, currentValue) => previousValue + currentValue
+            )
+        : 0;
+    setTotal(sum);
+  }, [cart]);
+
+  const handleRemoveProduct = (id) => {
+    setCart(cart.filter((product) => product.id != id));
+  };
 
   return (
     <div className="bg-gray-200 w-screen h-screen justify-center items-center p-3">
@@ -11,14 +42,24 @@ const Stripe = () => {
         <p className="font-bold">Pascal ZHOU</p>
         <span>XXXX</span>
 
-        <div className="py-4 px-2 mb-5 rounded-lg border flex items-center justify-between">
-          <p>Trottinette éléctrique</p>
-          <span>$ 400</span>
-        </div>
+        {cart &&
+          cart.map((product, index) => (
+            <div
+              key={index}
+              className="py-4 px-2 border-x-1 rounded-lg border flex items-center justify-between"
+            >
+              <p>{product.name}</p>
+              <span>{product.price} €</span>
+              <BsTrash
+                className="cursor-pointer"
+                onClick={() => handleRemoveProduct(product.id)}
+              />
+            </div>
+          ))}
 
-        <div className="flex justify-between items-center mb-5">
+        <div className="flex justify-between items-center my-5">
           <span className="text-gray-500">Montant total</span>
-          <p className="font-semibold">$ 1400</p>
+          <p className="font-semibold">{total} €</p>
         </div>
 
         <span className="text-gray-500">
@@ -33,7 +74,7 @@ const Stripe = () => {
         <span className="text-gray-500">
           Veuillez entrer vos informations bancaires :
         </span>
-        {<StripeContainer />}
+        {<StripeContainer amount={total} />}
       </div>
     </div>
   );
