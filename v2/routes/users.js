@@ -4,11 +4,24 @@ const router = express.Router();
 
 pool.connect()
 
+/* POST create new user. */
+router.post('/', async (req, res, next) => {
+  const resposne = await pool.query("INSERT INTO users (email, password_hash, firebase_id, first_name, last_name, display_name, username) VALUES($1, $2, $3, 'user_firstname', 'user_lastname', 'user_display_name', 'username');", [req.body.email, req.body.password, req.body.firebaseID])
+  // const { rows } = await pool.query("SELECT * FROM users;", [])
+  // res.send(rows)
+  console.log(resposne)
+  res.json({ message: "ok", body: req.body })
+});
+
+
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
   const { rows } = await pool.query("SELECT * FROM users;", [])
   res.send(rows)
 });
+
+
+
 
 router.get('/firebase/:id', async (req, res, next) => {
   const { rows } = await pool.query("SELECT * FROM users WHERE firebase_id = $1;", [req.params.id])
