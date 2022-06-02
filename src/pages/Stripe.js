@@ -1,9 +1,7 @@
-import { useState } from "react";
 
 import StripeContainer from ".././components/StripeContainer";
 
 const Stripe = () => {
-  const [x, setX] = useState(10);
 
   return (
     <div className="bg-gray-200 w-screen h-screen justify-center items-center p-3">

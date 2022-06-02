@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 const CARD_OPTIONS = {
@@ -60,11 +60,11 @@ export default function PaymentForm() {
       {!success ? (
         <form onSubmit={handleSubmit}>
           <fieldset className="FormGroup">
-            <div className="FormRow">
+            <div className="FormRow my-5">
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <input type="text" name="coupon" placeholder="Coupon" />
+          <input className=" border-x-0 border-t-0" type="text" name="coupon" placeholder="CODE PROMO" />
 
           <button className="absolute left-0 bottom-0 bg-blue-600 justify-center text-white w-full py-4 font-bold flex items-center space-x-5">
             <span>PAYER 5€</span>
