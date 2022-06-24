@@ -1,6 +1,6 @@
 import { t } from "i18next"
 
-const Cart = ({ items }) => {
+const Cart = ({ items, setCheckoutOpened }) => {
 
 
     if (!items || items.length == 0) {
@@ -37,7 +37,7 @@ const Cart = ({ items }) => {
                     <span>{items.length > 1 ? items.map((item) => item.price_per_units).reduce((acc, current) => acc + current) : items[0].price_per_units} €</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-gray-400 text-sm">{t("Total")}</span>
+                    <span className="text-gray-400 text-sm">{t("Delivery")}</span>
                     <span>{Math.min(items.length * 8, 24.99)} €</span>
                 </div>
             </div>
@@ -48,7 +48,7 @@ const Cart = ({ items }) => {
             </div>
 
             <div className="w-full mx-auto">
-                <button className="bg-black text-white py-2 w-full rounded-lg">{t("Proceeed to checkout")}</button>
+                <button onClick={() => setCheckoutOpened(true)} className="bg-black text-white py-2 w-full rounded-lg">{t("Proceeed to checkout")}</button>
             </div>
         </div>
     )

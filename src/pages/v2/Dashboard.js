@@ -425,24 +425,6 @@ const Dashboard2 = () => {
                                         <div className="text-gray-400 hover:scale-110 transition-all duration-200 ease-in-out">
                                             <BsThreeDots size={20} />
                                         </div>
-                                        <div className="absolute top-10 right-0 bg-white w-[300px] border rounded-lg z-50">
-                                            <div onClick={() => handleShowUserInfo(1)} className="p-3 flex items-center font-light space-x-3 hover:bg-gray-100">
-                                                <BsEye />
-                                                <span>
-                                                    Show
-                                                </span>
-                                            </div>
-                                            <div className="p-3 flex items-center font-light space-x-3 hover:bg-gray-100">
-                                                <BiPencil />
-                                                <span>
-                                                    Edit
-                                                </span>
-                                            </div>
-                                            <div className="p-3 flex items-center font-light space-x-3 hover:bg-gray-100">
-                                                <TiTimes />
-                                                <span>Delete</span>
-                                            </div>
-                                        </div>
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-100 ">

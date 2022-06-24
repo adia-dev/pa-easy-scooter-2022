@@ -9,13 +9,14 @@ import ScooterItem from "../components/catalogue/ScooterItem"
 import Header from "../components/Header"
 import MinMaxInput from "../components/MinMaxInput"
 import { AuthContext } from "../core/AuthProvider"
+import Stripe from "./Stripe"
 
 const Catalogue = () => {
 
     const { currentUser } = useContext(AuthContext)
 
 
-    const [users, setUsers] = useState([])
+    const [checkoutOpened, setCheckoutOpened] = useState(false)
     const [scooters, setScooters] = useState([])
     const [accessories, setAccessories] = useState([])
 
@@ -32,12 +33,6 @@ const Catalogue = () => {
     useEffect(() => {
 
 
-        const fetchUsers = async () => {
-            const data = await axios.get(`http://localhost:5500/api/v2/users`)
-            setUsers(data.data)
-            // console.log(data.data)
-            // setLoading(false)
-        }
 
         const fetchScooters = async () => {
             const data = await axios.get(`http://localhost:5500/api/v2/scooters`)
@@ -60,7 +55,6 @@ const Catalogue = () => {
             // setLoading(false)
         }
 
-        fetchUsers();
         fetchScooters();
         fetchAccessories();
         fetchCartItems();
@@ -122,6 +116,9 @@ const Catalogue = () => {
 
     return (
         <div className="w-full h-full overflow-x-hidden">
+
+            {checkoutOpened && cartItems.length > 0 && <Stripe setCheckoutOpened={setCheckoutOpened} cartItems={cartItems} user={currentUser} amount={cartItems.length > 1 ? cartItems.map((item) => item.price_per_units).reduce((acc, current) => acc + current) : cartItems[0].price_per_units + Math.min(cartItems.length * 8, 24.99)} />}
+
             <Header />
             <div className="p-10 w-full h-full">
                 <div className="flex items-center justify-between w-full border-black border-b-2">
@@ -130,7 +127,7 @@ const Catalogue = () => {
                         <BiCart className="cursor-pointer" onClick={() => toggleModalState("cart")} size={32} />
                         <div className="absolute  rounded-full p-2 w-4 h-4 font-semibold flex justify-center items-center -top-2 right-1 bg-red-500 animate-pulse text-white text-xs ">{cartItems.length}</div>
                         {
-                            openedModal.cart && <Cart items={cartItems} />
+                            openedModal.cart && <Cart setCheckoutOpened={setCheckoutOpened} items={cartItems} />
                         }
                     </div>
                 </div>
