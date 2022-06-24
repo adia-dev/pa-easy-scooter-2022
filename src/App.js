@@ -1,18 +1,18 @@
 import { createBrowserHistory } from 'history';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
-import AuthProvider from './core/AuthProvider';
+import AuthProvider from "./core/AuthProvider";
 import PrivateRoutes from './core/PrivateRoutes';
-import Booking from './pages/Booking';
-import Catalogue from './pages/Catalogue';
-import Dashboard from './pages/Dashboard';
-import Dev from './pages/Dev';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Stripe from './pages/Stripe';
-import Dashboard2 from './pages/v2/Dashboard';
-
+import Booking from "./pages/Booking";
+import Catalogue from "./pages/Catalogue";
+import Dashboard from "./pages/Dashboard";
+import Dev from "./pages/Dev";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Stripe from "./pages/Stripe";
+import Dashboard2 from "./pages/v2/Dashboard";
+import UserInfo from "./pages/v2/UserInfo";
 function App() {
 
   const defaultRedirect = "/login"
@@ -34,6 +34,7 @@ function App() {
             </Route>
             <Route element={<PrivateRoutes admin={false} redirect={"/"} />} >
               <Route exact path="v2/dashboard" element={<Dashboard2 />} />
+              <Route exact path="v2/users/:id/info" element={<UserInfo />} />
             </Route>
             <Route path="/dev" element={<Dev history={history} />} />
             <Route path="/booking/:id" element={<Booking history={history} />} />
@@ -44,6 +45,7 @@ function App() {
         </Router>
       </div>
     </AuthProvider>
+    // <div className=""><UserInfo /></div>
   );
 }
 

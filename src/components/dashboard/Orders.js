@@ -1,52 +1,16 @@
-import React from 'react'
-import { BsChevronDown, BsFilePdf, BsFillCaretDownFill, BsFillQuestionCircleFill, BsFilter, BsSearch, BsThreeDots } from 'react-icons/bs'
-import { MdOutlineAttachFile } from 'react-icons/md'
-import { IoMdDownload } from 'react-icons/io';
+import { BsFillCaretDownFill, BsFillQuestionCircleFill } from 'react-icons/bs';
 import { HiArrowSmLeft, HiArrowSmRight } from 'react-icons/hi';
+import { IoMdDownload } from 'react-icons/io';
 
 
 const Orders = () => {
     return (
         <div className='w-full'>
-            <div className="flex justify-between items-center mb-10">
+            <div className="flex justify-between items-center my-10">
                 <div className="flex items-center space-x-2">
                     <h1 className='text-2xl font-bold'>Orders</h1>
                     <BsFillQuestionCircleFill color='gray' />
                 </div>
-                <div className="flex items-center space-x-3">
-                    <button className='p-2 border rounded-md'>Open Documentation</button>
-                    <button className='p-2 border rounded-md border-violet-800 text-violet-800'>Setup Details</button>
-                    <button className='p-2 border rounded-md'><BsThreeDots /></button>
-                </div>
-            </div>
-            <p className='text-gray-400 font-light text-sm '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, alias atque fuga temporibus, ad repellat distinctio dignissimos pariatur totam est nesciunt! Veniam sunt odio exercitationem.</p>
-            <div className='border-b w-full leading-10 mt-10'>
-                <span className='text-lg'>
-                    Overview
-                </span>
-            </div>
-
-            <div className="flex items-center justify-around mt-5   w-full">
-                <div class="relative text-gray-600 focus-within:text-gray-400 w-8/12">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                        <button type="submit" class="p-1 focus:outline-none focus:shadow-outline">
-                            <BsSearch />
-                        </button>
-                    </span>
-                    <input type="search" name="q" class="w-full py-2 text-sm text-white border rounded-md pl-10 focus:outline-none focus:bg-white focus:text-gray-900" placeholder="Search for order ID, customer, order status..." autocomplete="off" />
-                </div>
-                <button className=' text-gray-400 hover:text-white hover:bg-black hover:border-gray-500 transition-all duration-200 ease-in-out flex items-center space-x-3 border px-2 py-1 rounded-md'>
-                    <BsFilter />
-                    <span>Filters</span>
-                </button>
-                <button className='text-gray-400 hover:text-white hover:bg-black hover:border-gray-500 transition-all duration-200 ease-in-out flex items-center space-x-3 border px-2 py-1 rounded-md'>
-                    <MdOutlineAttachFile />
-                    <span>Attachment</span>
-                </button>
-                <button className='text-gray-400 hover:text-white hover:bg-black hover:border-gray-500 transition-all duration-200 ease-in-out flex items-center space-x-3 border px-2 py-1 rounded-md'>
-                    <BsFilePdf />
-                    <span>Export</span>
-                </button>
             </div>
 
             <div class="flex flex-col h-[400px] mt-10">

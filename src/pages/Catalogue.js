@@ -1,26 +1,71 @@
+import axios from "axios"
 import { t } from "i18next"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { BiCaretDown, BiCart, BiFilter, BiTrashAlt } from "react-icons/bi"
 import { BsSearch } from "react-icons/bs"
 import { FaTimesCircle } from "react-icons/fa"
-import scooters from "../assets/dummy data/scooters"
 import Cart from "../components/catalogue/Cart"
 import ScooterItem from "../components/catalogue/ScooterItem"
 import Header from "../components/Header"
 import MinMaxInput from "../components/MinMaxInput"
+import { AuthContext } from "../core/AuthProvider"
 
 const Catalogue = () => {
 
+    const { currentUser } = useContext(AuthContext)
+
+
+    const [users, setUsers] = useState([])
+    const [scooters, setScooters] = useState([])
+    const [accessories, setAccessories] = useState([])
 
     const [filters, Setfilters] = useState({
         brands: [],
-        sizes: ["XS", "S", "M", "L"]
+        sizes: []
     })
 
-    const [cartItems, setCartItems] = useState([scooters[0]])
+    const [cartItems, setCartItems] = useState([])
     const [openedModal, setOpenedModal] = useState({
         cart: false
     })
+
+    useEffect(() => {
+
+
+        const fetchUsers = async () => {
+            const data = await axios.get(`http://localhost:5500/api/v2/users`)
+            setUsers(data.data)
+            // console.log(data.data)
+            // setLoading(false)
+        }
+
+        const fetchScooters = async () => {
+            const data = await axios.get(`http://localhost:5500/api/v2/scooters`)
+            setScooters(data.data)
+            console.log(data.data)
+            // setLoading(false)
+        }
+
+        const fetchAccessories = async () => {
+            const data = await axios.get(`http://localhost:5500/api/v2/accessories`)
+            setAccessories(data.data)
+            // console.log(data.data)
+            // setLoading(false)
+        }
+
+        const fetchCartItems = async () => {
+            const data = await axios.get(`http://localhost:5500/api/v2/cart/${currentUser.data.id}`)
+            setCartItems(data.data)
+            console.log(data.data)
+            // setLoading(false)
+        }
+
+        fetchUsers();
+        fetchScooters();
+        fetchAccessories();
+        fetchCartItems();
+
+    }, [])
 
     const brands = [
         "Brandless",
@@ -45,23 +90,23 @@ const Catalogue = () => {
     }
 
     const handleBrandsFilter = (brand, e) => {
-        console.log(e.target.checked)
-        console.log(filters.brands)
-        if (e.target.checked) {
-            Setfilters({ ...sizes, brands: filters.brands.push(brand) })
-        } else {
-            const filteredBrands = filters.brands.filter((b) => b != brand)
-            console.log(filteredBrands);
-            Setfilters({ ...sizes, brands: filteredBrands })
-        }
+        // console.log(e.target.checked)
+        // console.log(filters.brands)
+        // if (e.target.checked) {
+        //     Setfilters({ ...sizes, brands: filters.brands.push(brand) })
+        // } else {
+        //     const filteredBrands = filters.brands.filter((b) => b != brand)
+        //     console.log(filteredBrands);
+        //     Setfilters({ ...sizes, brands: filteredBrands })
+        // }
     }
 
     const handleRemoveBrandFilter = (brand) => {
-        Setfilters({ ...sizes, brands: filters.brands.filter((b) => b != brand) })
+        // Setfilters({ ...sizes, brands: filters.brands.filter((b) => b != brand) })
     }
 
     const handleRemoveSizeFilter = (size) => {
-        Setfilters({ ...brands, sizes: filters.sizes.filter((s) => s != size) })
+        // Setfilters({ ...brands, sizes: filters.sizes.filter((s) => s != size) })
     }
 
     const toggleModalState = (modal) => {
@@ -190,7 +235,12 @@ const Catalogue = () => {
                         <div className="flex items-center flex-wrap p-5">
                             {
                                 scooters.filter((scooter) => (true || filters.brands === [] || filters.brands.includes(scooter.brand))).map((scooter, i) => (
-                                    <ScooterItem key={"scooter-item-" + i} scooter={scooter} scooters={scooters} cartItems={cartItems} setCartItems={setCartItems} />
+                                    <ScooterItem key={"scooter-item-" + i} cartId={1} scooter={scooter} scooters={scooters} cartItems={cartItems} setCartItems={setCartItems} />
+                                ))
+                            }
+                            {
+                                accessories.filter((scooter) => (true || filters.brands === [] || filters.brands.includes(scooter.brand))).map((scooter, i) => (
+                                    <ScooterItem key={"scooter-item-" + i} cartId={1} scooter={scooter} scooters={accessories} cartItems={cartItems} setCartItems={setCartItems} />
                                 ))
                             }
                         </div>

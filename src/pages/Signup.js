@@ -70,14 +70,13 @@ const Login = ({ history }) => {
         event.preventDefault()
 
         const { email, password } = event.target.elements
-        const firebaseResponse = await createUserWithEmailAndPassword(auth, email.value, password.value);
-        console.log(firebaseResponse)
+        const { user } = await createUserWithEmailAndPassword(auth, email.value, password.value);
         try {
 
             const formData = {
                 email: email.value,
                 password: password.value,
-                firebaseID: "hey"
+                firebaseID: user.uid
             }
 
             const response = await axios({

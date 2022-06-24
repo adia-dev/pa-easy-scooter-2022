@@ -19,13 +19,13 @@ const Cart = ({ items }) => {
                 items.map((item, i) =>
                 (
                     <div key={"cart-item-" + i} className="flex items-start justify-between space-x-3">
-                        <img className="w-20 aspect-square object-contain border p-2 rounded-lg" src={item.image} alt="" />
+                        <img className="w-20 aspect-square object-contain border p-2 rounded-lg" src={item.image_path} alt="" />
                         <div className="flex flex-col flex-1">
                             <p>{item.name}</p>
                             <span className="text-gray-500 font-light">XL</span>
                         </div>
                         <div className="flex items-center mt-4">
-                            <p className="font-semibold text-sm">{item.price} €</p>
+                            <p className="font-semibold text-sm">{item.price_per_units} €</p>
                         </div>
                     </div>
                 ))
@@ -34,7 +34,7 @@ const Cart = ({ items }) => {
             <div className="w-full border-y py-5">
                 <div className="flex justify-between">
                     <span className="text-gray-400 text-sm">{t("Subtotal")}</span>
-                    <span>{items.length > 1 ? items.map((item) => item.price).reduce((acc, current) => acc + current) : items[0].price} €</span>
+                    <span>{items.length > 1 ? items.map((item) => item.price_per_units).reduce((acc, current) => acc + current) : items[0].price_per_units} €</span>
                 </div>
                 <div className="flex justify-between">
                     <span className="text-gray-400 text-sm">{t("Total")}</span>
@@ -44,7 +44,7 @@ const Cart = ({ items }) => {
 
             <div className="flex justify-between">
                 <span className=" text-sm">{t("Total")}</span>
-                <span className="font-semibold"><span className="font-normal text-xs text-gray-400">EUR</span> {items.length > 1 ? items.map((item) => item.price).reduce((acc, current) => acc + current) : items[0].price + Math.min(items.length * 8, 24.99)}€</span>
+                <span className="font-semibold"><span className="font-normal text-xs text-gray-400">EUR</span> {items.length > 1 ? items.map((item) => item.price_per_units).reduce((acc, current) => acc + current) : items[0].price_per_units + Math.min(items.length * 8, 24.99)}€</span>
             </div>
 
             <div className="w-full mx-auto">

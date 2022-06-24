@@ -3,7 +3,7 @@ export default [
         id: "CSI23CJS78",
         brand: "Inboard",
         name: "Inboard ES 2022",
-        image: "https://electric.travel/wp-content/uploads/2018/10/Inboard-Glider-Review.png",
+        image: "https://img.gkbcdn.com/s3/p/2020-03-13/xiaomi-smart4u-sh50-bicycle-smart-flash-helmet-black-1584081277206.jpg",
         description: "description",
         price: 54.99,
         quantity: 12,

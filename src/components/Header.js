@@ -11,7 +11,7 @@ import DropdownMenu from './dropdown/DropdownMenu';
 const Header = () => {
 
     const [menu, setMenu] = useState(menus.unauthenticated)
-    const [dropdownOpened, setDropdownOpened] = useState(true)
+    const [dropdownOpened, setDropdownOpened] = useState(false)
 
     const { currentUser } = useContext(AuthContext)
 
@@ -19,6 +19,8 @@ const Header = () => {
 
         if (!currentUser)
             setMenu(menus.unauthenticated)
+        else if (currentUser.data.role === "ADMINISTRATOR")
+            setMenu(menus.admin)
         else
             setMenu(menus.authenticated)
 
@@ -42,9 +44,9 @@ const Header = () => {
 
     return (
         <header className='h-[80px] relative w-screen flex items-center px-5 text-black'>
-            <div className="absolute left-5 lowercase font-bold">
+            <Link to="/" className="absolute left-5 lowercase font-bold">
                 Easy Scooter
-            </div>
+            </Link>
             <nav className='w-full flex justify-center'>
                 <ul className='flex w-1/2 justify-around'>
                     {
@@ -82,8 +84,8 @@ const Header = () => {
                 (
                     <div div className="absolute right-5 flex items-center h-full space-x-2">
                         <div className="flex items-center h-[50px] space-x-3 py-2 pl-1 pr-3 bg-orange-200 rounded-full">
-                            <img className='h-full rounded-full' src={"https://scontent.fcdg4-1.fna.fbcdn.net/v/t1.6435-9/106476575_1010938885989869_2837272586752487393_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9zka7JjJZR8AX_HRM_c&_nc_oc=AQkIZBBfd0dCjVmGVbSJByIaLHzmMfKswyH9NwscS8AGWHOuk7Kuia2rCmGpcaayw8k&_nc_ht=scontent.fcdg4-1.fna&oh=00_AT8LiipsxyaoE-4SXYj7hDKuGZuRaFoNhGHqAukP92vuGA&oe=62B44EC4"} alt="" />
-                            <span className='font-semibold text-orange-800'>{currentUser.data.display_name}</span>
+                            <img className='h-full rounded-full' src={currentUser.data.pfp_path ?? "https://scontent.fcdg4-1.fna.fbcdn.net/v/t1.6435-9/106476575_1010938885989869_2837272586752487393_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9zka7JjJZR8AX_HRM_c&_nc_oc=AQkIZBBfd0dCjVmGVbSJByIaLHzmMfKswyH9NwscS8AGWHOuk7Kuia2rCmGpcaayw8k&_nc_ht=scontent.fcdg4-1.fna&oh=00_AT8LiipsxyaoE-4SXYj7hDKuGZuRaFoNhGHqAukP92vuGA&oe=62B44EC4"} alt="" />
+                            <span className='font-semibold text-orange-800'>{currentUser.data.display_name ?? "undefined"}</span>
                         </div>
                         <div className="p-3 bg-orange-100 rounded-full text-orange-800 cursor-pointer brightness-95 hover:brightness-100">
                             <MdElectricScooter size={24} />

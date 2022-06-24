@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaChevronRight, FaCog, FaMoon, FaSignOutAlt, FaSun } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import { AuthContext } from "../../core/AuthProvider";
 import './_Dropdown.css';
 
 const DropdownMenu = () => {
@@ -16,6 +17,10 @@ const DropdownMenu = () => {
         setMenuHeight(height + 25);
 
     }
+
+    const { currentUser } = useContext(AuthContext)
+
+    console.log(currentUser)
 
 
     const DropdownItem = ({ redirectTo = "#", goToMenu, children, leftIcon, rightIcon }) => {
@@ -38,7 +43,7 @@ const DropdownMenu = () => {
                     <div className="flex cursor-pointer hover:bg-orange-700 px-3 rounded-lg items-center space-x-3  pt-1 pb-2 mb-3">
                         <img className="w-16 aspect-square rounded-full" src="https://scontent.fcdg4-1.fna.fbcdn.net/v/t1.6435-9/106476575_1010938885989869_2837272586752487393_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9zka7JjJZR8AX_HRM_c&_nc_oc=AQkIZBBfd0dCjVmGVbSJByIaLHzmMfKswyH9NwscS8AGWHOuk7Kuia2rCmGpcaayw8k&_nc_ht=scontent.fcdg4-1.fna&oh=00_AT8LiipsxyaoE-4SXYj7hDKuGZuRaFoNhGHqAukP92vuGA&oe=62B44EC4" alt="" />
                         <div className="flex flex-col">
-                            <span className="text-lg font-semibold">Belze Bvb</span>
+                            <span className="text-lg font-semibold">{currentUser.data.display_name ?? "undefined"}</span>
                             <span className="text-xs text-gray-300">{t('Go to your profiel')}</span>
                         </div>
                     </div>
