@@ -23,7 +23,7 @@ const CARD_OPTIONS = {
   },
 };
 
-export default function PaymentForm() {
+export default function PaymentForm({ amount }) {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -38,7 +38,7 @@ export default function PaymentForm() {
       try {
         const { id } = paymentMethod;
         const response = await axios.post("http://localhost:4000/payment", {
-          amount: 500,
+          amount: amount * 100,
           id,
           coupon: e.target.elements["coupon"].value,
         });
@@ -64,10 +64,15 @@ export default function PaymentForm() {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <input className=" border-x-0 border-t-0" type="text" name="coupon" placeholder="CODE PROMO" />
+          <input
+            className=" border-x-0 border-t-0"
+            type="text"
+            name="coupon"
+            placeholder="CODE PROMO"
+          />
 
           <button className="absolute left-0 bottom-0 bg-blue-600 justify-center text-white w-full py-4 font-bold flex items-center space-x-5">
-            <span>PAYER 5€</span>
+            <span>PAYER {amount}€</span>
             <AiOutlineArrowRight size={24} />
           </button>
         </form>
