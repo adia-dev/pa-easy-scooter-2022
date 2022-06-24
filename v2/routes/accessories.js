@@ -18,24 +18,18 @@ router.post('/', async (req, res, next) => {
 });
 
 
-/* GET users listing. */
+/* GET scooters listing. */
 router.get('/', async (req, res, next) => {
-  const { rows } = await pool.query("SELECT u.id, u.first_name, u.last_name, u.email, u.display_name, u.pfp_path, u.username, r.name as role FROM users as u INNER JOIN roles r on r.id = u.role_id ORDER BY u.id ASC;", [])
+  const { rows } = await pool.query("SELECT * FROM products as p WHERE type = 'accessories' ORDER BY p.id ASC;", [])
   res.send(rows)
 });
 
 
-/* GET one user by id. */
+/* GET one scooter by id. */
 router.get('/:id', async (req, res, next) => {
-  const { rows } = await pool.query("SELECT u.id, u.first_name, u.last_name, u.email, u.display_name, u.pfp_path, u.username, r.name as role FROM users as u INNER JOIN roles r on r.id = u.role_id WHERE u.id = $1 ORDER BY u.id ASC;", [req.params.id])
+  const { rows } = await pool.query("SELECT * FROM products as p WHERE type = 'accessories' AND p.id = $1 ORDER BY p.id ASC;", [req.params.id])
   res.json(rows[0] ?? {})
 });
 
-
-router.get('/firebase/:id', async (req, res, next) => {
-  const { rows } = await pool.query("SELECT u.id, u.first_name, u.last_name, u.email, u.display_name, u.pfp_path, u.username, r.name as role FROM users as u INNER JOIN roles r on r.id = u.role_id WHERE firebase_id = $1 ORDER BY u.id ASC;", [req.params.id])
-  console.log(rows)
-  res.send(rows[0])
-});
 
 module.exports = router;

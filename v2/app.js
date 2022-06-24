@@ -1,11 +1,14 @@
 require("dotenv").config()
-const bodyParser = require("body-parser");
 const cors = require("cors")
 const express = require('express')
 const logger = require('morgan');
 const port = process.env.PORT || 3000
 const app = express()
 const usersRouter = require('./routes/users');
+const scootersRouter = require('./routes/scooters');
+const accessoriesRouter = require('./routes/accessories');
+const cartRouter = require('./routes/cart');
+const rolesRouter = require('./routes/roles');
 
 // app.use(bodyParser.json())
 app.use(cors());
@@ -18,6 +21,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v2/users', usersRouter);
+app.use('/api/v2/scooters', scootersRouter);
+app.use('/api/v2/accessories', accessoriesRouter);
+app.use('/api/v2/cart', cartRouter);
+app.use('/api/v2/roles', rolesRouter);
 
 
 app.listen(port, () => {
