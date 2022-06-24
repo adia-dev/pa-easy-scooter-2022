@@ -1,11 +1,14 @@
 
 import StripeContainer from ".././components/StripeContainer";
 
-const Stripe = () => {
+const Stripe = ({ cartId, amount }) => {
+
+
+
 
   return (
-    <div className="bg-gray-200 w-screen h-screen justify-center items-center p-3">
-      <div className="w-4/12 bg-white h-full mx-auto rounded-xl p-5 relative overflow-hidden">
+    <div className="bg-[#08080875] w-screen h-screen justify-center items-center p-3 flex relative">
+      <div className="w-4/12 fixed bg-white h-[90%] mx-auto rounded-xl p-5 overflow-hidden">
         <span className="text-gray-500">Paiement pour :</span>
 
         <p className="font-bold">Pascal ZHOU</p>
