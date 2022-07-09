@@ -1,7 +1,7 @@
 import { createBrowserHistory } from 'history';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
-import AuthProvider from "./core/AuthProvider";
+import AuthProvider from './core/AuthProvider';
 import PrivateRoutes from './core/PrivateRoutes';
 import Booking from "./pages/Booking";
 import Catalogue from "./pages/Catalogue";
@@ -11,7 +11,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Stripe from "./pages/Stripe";
+import Booking2 from "./pages/v2/Booking";
 import Dashboard2 from "./pages/v2/Dashboard";
+import Sign from './pages/v2/Sign';
 import UserInfo from "./pages/v2/UserInfo";
 function App() {
 
@@ -41,6 +43,8 @@ function App() {
             <Route path="/login" element={<Login history={history} />} />
             <Route path="/signup" element={<Signup history={history} />} />
             <Route path="/stripe" element={<Stripe history={history} />} />
+            <Route path="/sign" element={<Sign history={history} />} />
+            <Route path="/v2/booking" element={<Booking2 history={history} />} />
           </Routes>
         </Router>
       </div>
