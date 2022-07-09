@@ -10,7 +10,7 @@ import { HiPlusSm } from "react-icons/hi";
 import { IoIosConstruct, IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineElectricScooter } from "react-icons/md";
 import { RiUser6Line } from "react-icons/ri";
-import { SiCircle, SiTesla } from 'react-icons/si';
+import { SiCircle, SiTesla, SiXiaomi } from 'react-icons/si';
 import { TiTimes } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import Documents from "../../components/dashboard/Documents";
@@ -63,6 +63,12 @@ const Dashboard2 = () => {
             name: "Tesla",
             status: "in_discussion",
             icon: SiTesla,
+            color: "#cc0000"
+        },
+        {
+            name: "Xiaomi",
+            status: "partner",
+            icon: SiXiaomi,
             color: "#cc0000"
         },
         {
