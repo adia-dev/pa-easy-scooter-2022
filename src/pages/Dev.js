@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BsChevronExpand, BsSearch, BsTwitter } from 'react-icons/bs'
 import { FaAirbnb, FaPinterest, FaTimes } from 'react-icons/fa'
 import { RiMenuFoldLine } from 'react-icons/ri'
-import { SiBlueprint, SiTesla } from 'react-icons/si'
+import { SiBlueprint, SiTesla, SiXiaomi } from 'react-icons/si'
 import { menuData } from '../data/dashboardMenu'
 
 const Dev = () => {
@@ -47,7 +47,13 @@ const Dev = () => {
             color: "#cc0000"
         },
         {
-            name: "Twitter",
+            name: "Xiaomi",
+            status: "partner",
+            icon: SiXiaomi,
+            color: "#cc0000"
+        },
+        {
+            name: "Twitterd",
             status: "partner",
             icon: BsTwitter,
             color: "#1da1f2"
