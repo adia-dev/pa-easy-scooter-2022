@@ -1,6 +1,5 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import React from "react";
 import PaymentForm from "./PaymentForm";
 
 const PUBLIC_KEY =
@@ -8,10 +7,10 @@ const PUBLIC_KEY =
 
 const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
-export default function StripeContainer({ amount }) {
+export default function StripeContainer({ amount, setCheckoutOpened }) {
   return (
     <Elements stripe={stripeTestPromise}>
-      <PaymentForm amount={amount} />
+      <PaymentForm setCheckoutOpened={setCheckoutOpened} amount={amount} />
     </Elements>
   );
 }

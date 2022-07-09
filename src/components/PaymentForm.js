@@ -23,7 +23,7 @@ const CARD_OPTIONS = {
   },
 };
 
-export default function PaymentForm({ amount }) {
+export default function PaymentForm({ amount, setCheckoutOpened }) {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -77,9 +77,7 @@ export default function PaymentForm({ amount }) {
           </button>
         </form>
       ) : (
-        <div>
-          <h2>Scooter rented ! Thanks for your purchase !</h2>
-        </div>
+        setCheckoutOpened(false)
       )}
     </>
   );
