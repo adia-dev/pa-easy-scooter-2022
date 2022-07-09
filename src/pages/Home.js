@@ -11,7 +11,7 @@ const Home = () => {
 
     const { currentUser } = useContext(AuthContext)
     const params = useParams()
-    const [displayScooter, SetdisplayScooter] = useState(scooters[0])
+    const [displayScooter, SetdisplayScooter] = useState(scooters[2])
 
 
     // if (!currentUser) {
