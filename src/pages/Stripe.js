@@ -46,7 +46,7 @@ const Stripe = ({ user, setCheckoutOpened, cartItems, amount }) => {
         <span className="text-gray-500">
           Veuillez entrer vos informations bancaires :
         </span>
-        {<StripeContainer amount={amount} />}
+        {<StripeContainer setCheckoutOpened={setCheckoutOpened} amount={amount} />}
       </div>
     </div>
   );
