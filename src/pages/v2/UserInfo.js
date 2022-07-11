@@ -58,7 +58,7 @@ const UserInfo = ({ userId, setTargetUserId }) => {
 
                 <div className="flex">
                     <div className="w-24 aspect-square rounded-full overflow-hidden border-2 border-green-400 p-1">
-                        <img src="https://i.pinimg.com/736x/1e/28/ea/1e28eaa02f627ed922ffcdc7c168cddb.jpg" className="rounded-full w-full h-full " alt="" />
+                        <img src={user.pfp_path ?? "https://i.pinimg.com/736x/1e/28/ea/1e28eaa02f627ed922ffcdc7c168cddb.jpg"} className="rounded-full w-full h-full " alt="" />
                     </div>
                     <div className="ml-3 -space-y-3">
                         <div className="flex items-center">
@@ -84,7 +84,7 @@ const UserInfo = ({ userId, setTargetUserId }) => {
                     </div>
                     <div className="flex items-center space-x-2">
                         <BiUser size={18} />
-                        <span>Last activity 7 days ago</span>
+                        <span>Last activity {user.last_activity ?? "7 days ago"}</span>
                     </div>
                 </div>
                 <div className=" flex items-center space-x-3 text-xs text-gray-700 mt-2">
