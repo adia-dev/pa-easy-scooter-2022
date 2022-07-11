@@ -1,12 +1,21 @@
 import { useLoadScript } from '@react-google-maps/api'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GoQuestion } from 'react-icons/go'
 import BookOption from '../../components/BookOption'
 import GoogleMapSearch from '../../components/GoogleMapSearch'
+import Map from '../../components/Map'
 
 const libraries = ["places"]
 
 const Booking = () => {
+
+    const [pickupPoints, setPickupPoints] = useState([])
+
+
+    useEffect(() => {
+
+
+    }, [])
 
 
     const { isLoaded } = useLoadScript({
@@ -14,14 +23,18 @@ const Booking = () => {
         libraries
     })
 
-    const [showAvailableScooters, setShowAvailableScooters] = useState(true)
+    const [showAvailableScooters, setShowAvailableScooters] = useState(false)
 
     const mapRef = useRef(null);
 
     const [target, setTarget] = useState(null)
 
     const toggleShowAvailableScooters = () => {
-        setShowAvailableScooters(!showAvailableScooters)
+        // setShowAvailableScooters(!showAvailableScooters)
+    }
+
+    const panTo = (coords) => {
+        mapRef.current?.panTo(coords)
     }
 
     return (
@@ -29,7 +42,7 @@ const Booking = () => {
             <div className="flex items-center space-x-4 mb-5 w-full">
                 <div className="space-y-1 w-full">
                     <p className='font-semibold'>Where: </p>
-                    {isLoaded ? <GoogleMapSearch setTarget={(coords) => { setTarget(coords); mapRef.current?.panTo(coords) }} /> : <p>Is Loading...</p>}
+                    {isLoaded ? <GoogleMapSearch setTarget={(coords) => { setTarget(coords); panTo(coords) }} /> : <p>Is Loading...</p>}
                 </div>
                 <div className="space-y-1 w-full">
                     <div className='font-semibold text-white'>nothing</div>
@@ -68,16 +81,19 @@ const Booking = () => {
             </div>
             <div className="flex w-full  h-full mt-5">
                 <div className="aspect-[1/1.25] flex flex-col items-center py-2">
-                    <p>There are <span className='font-semibold'>3,541 parking lots</span> in <span className='font-semibold'>Paris</span>.</p>
+                    <p>There are <span className='font-semibold'>{pickupPoints?.length} pickup spots</span> in <span className='font-semibold'>Lyon</span>.</p>
 
-                    <div className='h-full w-full p-3'>
-                        <BookOption place={"La Defense"} address="1 Parvis de la Défense" />
-                        <BookOption place={"Gare Lyon"} address="Pl. Louis-Armand" />
+                    <div className='h-full w-full p-3 overflow-y-scroll'>
+                        {
+                            pickupPoints?.length > 0 && pickupPoints.map((pickupPoint, i) => (
+                                <BookOption key={pickupPoint.id} panTo={panTo} pickupPoint={pickupPoint} />
+                            ))
+                        }
                     </div>
                 </div>
                 <div className="w-full relative flex items-center h-full rounded-xl border border-black overflow-hidden group">
                     <div onClick={toggleShowAvailableScooters} className={`w-full h-full absolute left-0 top-0 bg-blue-500 ${showAvailableScooters && "translate-x-[-100%]"} transition-all duration-200 ease-in-out`}>
-                        {/* <Map mapRef={mapRef} target={target} isLoaded={isLoaded} /> */}
+                        <Map mapRef={mapRef} target={target} isLoaded={isLoaded} pickupPoints={pickupPoints} setPickupPoints={setPickupPoints} />
                     </div>
                     <div className={`w-full h-full bg-red-500 absolute left-0 top-0 translate-x-[100%] ${showAvailableScooters && "translate-x-[0%]"} transition-all duration-200 ease-in-out`}>
 
