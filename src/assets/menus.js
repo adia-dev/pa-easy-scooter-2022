@@ -1,7 +1,7 @@
 import { BiLogIn } from 'react-icons/bi'
 import { BsHouseDoor, BsShop } from 'react-icons/bs'
 import { GoDashboard } from 'react-icons/go'
-import { MdContactSupport } from 'react-icons/md'
+import { MdContactSupport, MdElectricScooter } from 'react-icons/md'
 import { TiWeatherPartlySunny } from 'react-icons/ti'
 
 export default
@@ -37,6 +37,11 @@ export default
                     path: "/"
                 },
                 {
+                    name: "Scooters",
+                    icon: MdElectricScooter,
+                    path: "/v2/booking"
+                },
+                {
                     name: "Products",
                     icon: BsShop,
                     path: "/catalogue"
@@ -58,6 +63,11 @@ export default
                     name: "Home",
                     icon: BsHouseDoor,
                     path: "/"
+                },
+                {
+                    name: "Scooters",
+                    icon: MdElectricScooter,
+                    path: "/v2/booking"
                 },
                 {
                     name: "Products",
