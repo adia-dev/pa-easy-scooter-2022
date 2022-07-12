@@ -7,6 +7,7 @@ import menus from '../assets/menus';
 import { AuthContext } from '../core/AuthProvider';
 import { auth } from '../core/base';
 import DropdownMenu from './dropdown/DropdownMenu';
+import HeaderLogo from './HeaderLogo';
 
 const Header = () => {
 
@@ -44,9 +45,7 @@ const Header = () => {
 
     return (
         <header className='h-[80px] relative w-screen flex items-center px-5 text-black'>
-            <Link to="/" className="absolute left-5 lowercase font-bold">
-                Easy Scooter
-            </Link>
+            <HeaderLogo />
             <nav className='w-full flex justify-center'>
                 <ul className='flex w-1/2 justify-around'>
                     {
