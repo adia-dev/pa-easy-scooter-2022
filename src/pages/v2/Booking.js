@@ -4,12 +4,16 @@ import { GoQuestion } from 'react-icons/go'
 import BookOption from '../../components/BookOption'
 import GoogleMapSearch from '../../components/GoogleMapSearch'
 import Map from '../../components/Map'
+import PickupPointModal from '../../components/PickupPointModal'
 
 const libraries = ["places"]
 
 const Booking = () => {
 
     const [pickupPoints, setPickupPoints] = useState([])
+    const [showPickupPointModal, setShowPickupPointModal] = useState(false)
+    const [currentPickupPoint, setCurrentPickupPoint] = useState(null)
+    const google = window.google;
 
 
     useEffect(() => {
@@ -38,7 +42,9 @@ const Booking = () => {
     }
 
     return (
-        <div className='w-screen h-screen p-8 flex flex-col'>
+        <div className='w-screen h-screen relative p-8 flex flex-col'>
+            {showPickupPointModal && <PickupPointModal pickupPoint={currentPickupPoint} setShowPickupPointModal={setShowPickupPointModal} />}
+
             <div className="flex items-center space-x-4 mb-5 w-full">
                 <div className="space-y-1 w-full">
                     <p className='font-semibold'>Where: </p>
@@ -86,7 +92,7 @@ const Booking = () => {
                     <div className='h-full w-full p-3 overflow-y-scroll'>
                         {
                             pickupPoints?.length > 0 && pickupPoints.map((pickupPoint, i) => (
-                                <BookOption key={pickupPoint.id} panTo={panTo} pickupPoint={pickupPoint} />
+                                <BookOption setCurrentPickupPoint={setCurrentPickupPoint} setShowPickupPointModal={setShowPickupPointModal} key={pickupPoint.id} panTo={panTo} pickupPoint={pickupPoint} />
                             ))
                         }
                     </div>
