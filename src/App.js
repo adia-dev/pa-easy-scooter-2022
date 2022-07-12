@@ -5,6 +5,7 @@ import AuthProvider from './core/AuthProvider';
 import PrivateRoutes from './core/PrivateRoutes';
 import Booking from "./pages/Booking";
 import Catalogue from "./pages/Catalogue";
+import Checkout from './pages/Checkout';
 import Dashboard from "./pages/Dashboard";
 import Dev from "./pages/Dev";
 import Home from "./pages/Home";
@@ -44,6 +45,7 @@ function App() {
             <Route path="/signup" element={<Signup history={history} />} />
             <Route path="/stripe" element={<Stripe history={history} />} />
             <Route path="/sign" element={<Sign history={history} />} />
+            <Route path="/v2/booking/checkout" element={<Checkout history={history} />} />
             <Route path="/v2/booking" element={<Booking2 history={history} />} />
           </Routes>
         </Router>
