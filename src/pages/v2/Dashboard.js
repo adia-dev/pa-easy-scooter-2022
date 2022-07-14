@@ -8,20 +8,23 @@ import { GiCalendarHalfYear, GiFullMotorcycleHelmet, GiReturnArrow } from "react
 import { GoBroadcast } from "react-icons/go";
 import { HiPlusSm } from "react-icons/hi";
 import { IoIosConstruct, IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
-import { MdOutlineElectricScooter } from "react-icons/md";
+import { MdElectricScooter, MdOutlineElectricScooter } from "react-icons/md";
 import { RiUser6Line } from "react-icons/ri";
-import { SiCircle, SiTesla, SiXiaomi } from 'react-icons/si';
+import { SiTesla, SiXiaomi } from 'react-icons/si';
 import { TiTimes } from "react-icons/ti";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Documents from "../../components/dashboard/Documents";
 import Orders from "../../components/dashboard/Orders";
 import UserInfo from "./UserInfo";
 
 const Dashboard2 = () => {
 
+    const navigate = useNavigate()
+
     const [users, setUsers] = useState([])
     const [scooters, setScooters] = useState([])
     const [accessories, setAccessories] = useState([])
+    const [rides, setRides] = useState([])
     const [showUserMenuID, setShowUserMenuID] = useState(null)
     const [targetUserId, setTargetUserId] = useState(null)
     const [openedTab, setOpenedTab] = useState("Overview")
@@ -103,6 +106,13 @@ const Dashboard2 = () => {
                 // setLoading(false)
             }
 
+            const fetchRides = async () => {
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `rides`)
+                setRides(data.data)
+                console.log(data.data)
+                // setLoading(false)
+            }
+
             const fetchAccessories = async () => {
                 const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `accessories`)
                 setAccessories(data.data)
@@ -112,6 +122,7 @@ const Dashboard2 = () => {
 
             fetchUsers();
             fetchScooters();
+            fetchRides();
             fetchAccessories();
         }
 
@@ -138,6 +149,7 @@ const Dashboard2 = () => {
                 <nav className="ml-5">
                     <ul className="flex items-center space-x-3 text-sm">
                         <li onClick={() => handleNavigateTabs("Overview")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Overview" && 'text-white bg-gray-800'}`}>Overview</li>
+                        <li onClick={() => navigate("/v2/dashboard/map")} className={`cursor-pointer text-green-600 hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Map" && 'text-white bg-gray-800'}`}>Map</li>
                         <li onClick={() => handleNavigateTabs("Products")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Products" && 'text-white bg-gray-800'}`}>Products</li>
                         <li onClick={() => handleNavigateTabs("Documents")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Documents" && 'text-white bg-gray-800'}`}>Documents</li>
                         <li onClick={() => handleNavigateTabs("Orders")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Orders" && 'text-white bg-gray-800 '}`}>Orders</li>
@@ -178,45 +190,45 @@ const Dashboard2 = () => {
             </div>
 
             {
-                openedTab == "Overview" && <div className="">
+                openedTab === "Overview" && <div className="">
 
                     <div className="flex items-center space-x-4 mt-5">
                         <h1 className="font-semibold">Analytics</h1>
-                        <div className="flex items-center text-gray-500 text-xs">
+                        {/* <div className="flex items-center text-gray-500 text-xs">
                             <span>Basic preset</span>
                             <IoMdArrowDropdown />
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="flex items-center justify-between space-x-5 mt-2">
                         <div className="bg-gray-100 aspect-[1/0.85] flex-[1] p-3 rounded-lg flex flex-col space-y-3">
                             <div className="flex items-center space-x-3">
-                                <SiCircle size={48} />
+                                <MdElectricScooter size={48} />
                                 <div className="">
-                                    <p>Base Metrics</p>
-                                    <span className="text-xs text-gray-500">1AM - 6PM</span>
+                                    <p>Rides</p>
+                                    {/* <span className="text-xs text-gray-500">1AM - 6PM</span> */}
                                 </div>
                             </div>
                             <div className="flex-1 bg-white rounded-lg flex flex-col p-2">
                                 <div className="flex items-center hover:bg-gray-100 rounded-lg cursor-pointer h-[33%] p-2">
                                     <BiStats size={18} />
-                                    <span className="font-[500] mx-2 text-xl">23</span>
-                                    <span className="text-gray-400 text-xs font-light">critical</span>
+                                    <span className="font-[500] mx-2 text-xl">{rides.length}</span>
+                                    <span className="text-gray-400 text-xs font-light">Total</span>
                                     <div className="flex-1 flex justify-end items-center">
                                         <IoMdArrowDropright />
                                     </div>
                                 </div>
                                 <div className="flex items-center hover:bg-gray-100 rounded-lg cursor-pointer h-[33%] p-2">
                                     <AiOutlineMessage size={18} />
-                                    <span className="font-[500] mx-2 text-xl">23</span>
-                                    <span className="text-gray-400 text-xs font-light">New messages</span>
+                                    <span className="font-[500] mx-2 text-xl">{rides.filter((ride) => ride.status === 'PROBLEM').length}</span>
+                                    <span className="text-gray-400 text-xs font-light">Issues</span>
                                     <div className="flex-1 flex justify-end items-center">
                                         <IoMdArrowDropright />
                                     </div>
                                 </div>
                                 <div className="flex items-center hover:bg-gray-100 rounded-lg cursor-pointer h-[33%] p-2">
                                     <GiReturnArrow size={18} />
-                                    <span className="font-[500] mx-2 text-xl ">3</span>
+                                    <span className="font-[500] mx-2 text-xl ">{rides.filter((ride) => ride.status === 'CANCELED').length}</span>
                                     <span className="text-gray-400 text-xs font-light">Return</span>
                                     <div className="flex-1 flex justify-end items-center">
                                         <IoMdArrowDropright />
@@ -275,9 +287,9 @@ const Dashboard2 = () => {
                                     <p className="font-semibold text-3xl mb-2">{users.length}</p>
                                     <p className="text-xs text-gray-400">Total Users</p>
                                 </div>
-                                <div className="flex-1 w-full flex-col items-center justify-center text-center ">
-                                    <p className="font-semibold text-3xl mb-2">93.5%</p>
-                                    <p className="text-xs text-gray-400">Growth</p>
+                                <div onClick={() => handleNavigateTabs("Partners")} className="flex-1 w-full cursor-pointer flex-col items-center justify-center text-center ">
+                                    <p className="font-semibold text-3xl mb-2">{users.filter((user) => user.role === 'PARTNER').length}</p>
+                                    <p className="text-xs text-gray-400">Partners</p>
                                 </div>
                             </div>
                         </div>
@@ -292,24 +304,24 @@ const Dashboard2 = () => {
                                     <p className="text-xs text-gray-400">Total Scooters</p>
                                 </div>
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
-                                    <p className="font-semibold text-3xl mb-2">{scooters.filter((scooter) => scooter.status == 'in_repair').length}</p>
-                                    <p className="text-xs text-gray-400">In repair</p>
+                                    <p className="font-semibold text-3xl mb-2">{scooters.filter((scooter) => scooter.status === 'MAINTENANCE').length}</p>
+                                    <p className="text-xs text-gray-400">In Maintenance</p>
                                 </div>
-                                <div className="flex-1 w-full flex-col items-center justify-center text-center ">
-                                    <p className="font-semibold text-3xl mb-2">...</p>
-                                    <p className="text-xs text-gray-400">...</p>
+                                <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
+                                    <p className="font-semibold text-3xl mb-2">{scooters.filter((scooter) => scooter.status === 'AVAILABLE').length}</p>
+                                    <p className="text-xs text-gray-400">Available</p>
                                 </div>
                             </div>
                         </div>
                         <div className="bg-white flex-1 aspect-[1/0.5] rounded-xl flex flex-col">
                             <div className="flex items-center space-x-3 p-5 border-b border-gray-100">
                                 <GoBroadcast size={32} />
-                                <span>Bookings</span>
+                                <span>Orders</span>
                             </div>
                             <div className="flex items-center p-3 flex-1 w-full">
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">17</p>
-                                    <p className="text-xs text-green-500">Live</p>
+                                    <p className="text-xs text-green-500">This Week</p>
                                 </div>
                                 <div className="flex-1 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">93.5%</p>
@@ -422,7 +434,7 @@ const Dashboard2 = () => {
 
             }
             {
-                openedTab == "Products" && <div className="">
+                openedTab === "Products" && <div className="">
 
                     <div className="flex items-center space-x-4 mt-5">
                         <h1 className="font-semibold">Products</h1>
@@ -501,15 +513,15 @@ const Dashboard2 = () => {
             }
 
             {
-                openedTab == "Documents" && <Documents />
+                openedTab === "Documents" && <Documents />
             }
 
             {
-                openedTab == "Orders" && <Orders />
+                openedTab === "Orders" && <Orders />
             }
 
             {
-                openedTab == "Partners" &&
+                openedTab === "Partners" &&
                 <div className="w-full">
                     <div className="flex justify-between items-center my-10">
                         <div className="flex items-center space-x-2">

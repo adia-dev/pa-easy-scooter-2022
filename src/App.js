@@ -14,6 +14,7 @@ import Signup from "./pages/Signup";
 import Stripe from "./pages/Stripe";
 import Booking2 from "./pages/v2/Booking";
 import Dashboard2 from "./pages/v2/Dashboard";
+import DashboardMap from './pages/v2/DashboardMap';
 import Sign from './pages/v2/Sign';
 import UserInfo from "./pages/v2/UserInfo";
 function App() {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/sign" element={<Sign history={history} />} />
             <Route path="/v2/booking/checkout" element={<Checkout history={history} />} />
             <Route path="/v2/booking" element={<Booking2 history={history} />} />
+            <Route path="/v2/dashboard/map" element={<DashboardMap history={history} />} />
           </Routes>
         </Router>
       </div>

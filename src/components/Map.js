@@ -7,13 +7,12 @@ import { closeOptions } from '../data/googleMapsOptions';
 
 // 6 Rue Gerbe
 
-const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoints, setPickupPoints }) => {
+const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoints, setPickupPoints, scooters, setScooters, params }) => {
 
     const google = window.google;
 
     const center = useMemo(() => (centerCoords ?? { lat: 45.7641447, lng: 4.83543 }), [])
     const options = useMemo(() => customOptions ?? { mapId: "3bb35e645c690444", disableDefaultUI: false, clickableIcons: false }, [])
-    const scooters = useMemo(() => generateScooters(target), [target])
     const [directions, setDirections] = useState(null)
     const [currentCoords, setCurrentCoords] = useState(null)
 
@@ -21,22 +20,35 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
 
     const onLoad = useCallback(
         (map) => {
+
+            console.log(params);
+
             mapRef.current = map;
             const fetchPickupPoints = async () => {
                 const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + "pickups");
                 console.log(data.data);
 
-                if (navigator && navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(pos => {
-                        const coords = pos.coords;
-                        console.log(coords)
-                        setCurrentCoords({ lat: coords.latitude, lng: coords.longitude })
-                    });
-                }
+
                 setPickupPoints(data.data)
             }
 
-            fetchPickupPoints();
+            const fetchScooters = async () => {
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + "scooters/rides");
+                setScooters(data.data)
+                console.log('scooters')
+                console.log(data.data);
+            }
+
+            !!setPickupPoints && fetchPickupPoints();
+            !!setScooters && fetchScooters();
+
+            if (navigator && navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const coords = pos.coords;
+                    console.log(coords)
+                    setCurrentCoords({ lat: coords.latitude, lng: coords.longitude })
+                });
+            }
         },
         [],
     )
@@ -50,9 +62,7 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
             {
                 origin: target,
                 destination: coords,
-                waypoints: scooters.map((scooter) => ({ location: scooter, stopover: true })),
-                optimizeWaypoints: true,
-                travelMode: google.maps.TravelMode.BICYCLING
+                travelMode: google.maps.TravelMode.DRIVING
             },
             (result, status) => {
                 if (status === "OK" && result)
@@ -91,26 +101,16 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
         <div className='w-full h-full bg-red-200'>
             <GoogleMap onLoad={onLoad} zoom={11} center={center} mapContainerClassName="w-full h-full" options={options}>
 
-                {directions && <DirectionsRenderer directions={directions} />}
+                {params?.showDirections && directions && <DirectionsRenderer directions={directions} />}
 
                 {target &&
                     <>
-
-
                         <Marker position={target} />
                         <Circle center={target} radius={15000} options={closeOptions} />
-                        <MarkerClusterer
-                            averageCenter={true}
-                            enableRetinaIcons={true}
-                            gridSize={250}>
-                            {(clusterer) =>
-                                scooters.length > 0 && scooters.map((scooter, i) => <Marker key={i} onClick={() => handleClickOnMaker(scooter)} position={scooter} clusterer={clusterer} />)
-                            }
-                        </MarkerClusterer>
 
                     </>}
                 {
-                    pickupPoints.length > 0 &&
+                    params?.showPickupPoints && pickupPoints.length > 0 &&
                     <MarkerClusterer
                         averageCenter={true}
                         enableRetinaIcons={true}
@@ -118,7 +118,22 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
                         {(clusterer) => {
                             console.log("pickup points");
                             console.log(pickupPoints);
-                            return pickupPoints.length > 0 && pickupPoints.map((point, i) => <Marker key={i} onClick={() => handleClickOnPickupPoint({ lat: point.lat, lng: point.lng })} position={{ lat: point.lat, lng: point.lng }} clusterer={clusterer} />)
+                            return pickupPoints.length > 0 && pickupPoints.map((point, i) => <Marker key={i} icon={{ url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" }} onClick={() => handleClickOnPickupPoint({ lat: point.lat, lng: point.lng })} position={{ lat: point.lat, lng: point.lng }} clusterer={clusterer} />)
+                        }
+                        }
+                    </MarkerClusterer>
+                }
+
+                {
+                    params?.showScooters && scooters.length > 0 &&
+                    <MarkerClusterer
+                        averageCenter={true}
+                        enableRetinaIcons={true}
+                        gridSize={250}>
+                        {(clusterer) => {
+                            console.log("scooters rides");
+                            console.log(scooters);
+                            return scooters.length > 0 && scooters.map((scooter, i) => <Marker key={i} icon={{ url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" }} onClick={() => handleClickOnPickupPoint({ lat: scooter.lat, lng: scooter.lng })} position={{ lat: scooter.lat, lng: scooter.lng }} clusterer={clusterer} />)
                         }
                         }
                     </MarkerClusterer>
@@ -132,17 +147,3 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
 
 export default Map
 
-const generateScooters = (position) => {
-    if (position == null) return;
-
-    const _scooters = [];
-    for (let i = 0; i < 10; i++) {
-        const directionX = Math.random() < 0.5 ? -4 : 4;
-        const directionY = Math.random() < 0.5 ? -5 : 5;
-        _scooters.push({
-            lat: position.lat + Math.random() / directionX,
-            lng: position.lng + Math.random() / directionY,
-        });
-    }
-    return _scooters;
-};
