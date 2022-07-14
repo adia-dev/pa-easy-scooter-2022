@@ -1,11 +1,9 @@
 import { signInWithEmailAndPassword } from '@firebase/auth'
+import axios from 'axios'
 import { browserSessionPersistence, setPersistence } from "firebase/auth"
 import { useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiDotsVerticalRounded } from 'react-icons/bi'
-import { BsFacebook, BsTwitter } from 'react-icons/bs'
-import { FcGoogle } from 'react-icons/fc'
-import { IoAddCircleSharp, IoCloseCircleSharp, IoLanguage } from 'react-icons/io5'
+import { IoLanguage } from 'react-icons/io5'
 import { MdDarkMode, MdOutlineArrowBackIosNew } from 'react-icons/md'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -32,6 +30,9 @@ const Login = ({ history }) => {
     const [openedModals, setOpenedModals] = useState({
         languages: false
     })
+
+    const { currentUser, setCurrentUser } = useContext(AuthContext)
+
 
     const openModal = (modal) => {
         switch (modal) {
@@ -69,7 +70,18 @@ const Login = ({ history }) => {
 
             await setPersistence(auth, browserSessionPersistence)
 
-            await signInWithEmailAndPassword(auth, email.value, password.value)
+            const { user } = await signInWithEmailAndPassword(auth, email.value, password.value)
+
+            console.log(user);
+
+            const fetchUser = async () => {
+                console.log(process.env);
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `users/firebase/${user.uid}`)
+                setCurrentUser({ ...user, data: data.data })
+            }
+
+            fetchUser()
+
             navigate("/")
         } catch (error) {
             console.error(error)
@@ -81,31 +93,12 @@ const Login = ({ history }) => {
         setOpenedModals({ ...openedModals, languages: false })
     }
 
-    const { currentUser, setCurrentUser } = useContext(AuthContext)
 
-    if (currentUser) {
+    if (currentUser && currentUser.data) {
 
         navigate("/")
-        // const bodyFormData = new FormData();
-        // bodyFormData.append('id', 1)
-
-        // axios({
-        //     method: "post",
-        //     url: "http://localhost:8888/api/users",
-        //     data: bodyFormData,
-        //     headers: { "Content-Type": "multipart/form-data" },
-        // })
-        //     .then(function (res) {
-        //         //handle success
-        //         const user = Object.assign({}, { firebaseUser: currentUser }, res.data.user)
-        //         setCurrentUser(user)
-        //         navigate("/")
-        //     })
-        //     .catch(function (error) {
-        //         //handle error
-
-        //         console.log(error);
-        //     });
+    } else {
+        navigate("/login")
 
     }
 
@@ -145,7 +138,7 @@ const Login = ({ history }) => {
 
 
                 <div className=" w-[70%] h-full mx-auto">
-                    <div className="">
+                    {/* <div className="">
                         <span>{t('Recent logins')}</span>
                         <div className="flex items-center space-x-3">
                             {recentLogins.map((user, i) => (
@@ -168,13 +161,14 @@ const Login = ({ history }) => {
                             </div>
                         </div>
 
-                    </div>
-                    <div className="relative flex py-5 items-center">
+                    </div> */}
+                    {/* <div className="relative flex py-5 items-center">
                         <div className="flex-grow border-t border-gray-400"></div>
                         <span className="flex-shrink mx-4 text-gray-400">{t('OR')}</span>
                         <div className="flex-grow border-t border-gray-400"></div>
-                    </div>
-                    <div className="w-full bg-white rounded-2xl h-[60%] py-8 flex flex-col items-center">
+                    </div> */}
+                    <div className="w-full bg-white rounded-2xl h-[80%] justify-center flex flex-col items-center">
+                        <h1 className='py-8 text-3xl font-semibold'>{t('Login')}</h1>
                         <form onSubmit={handleLogin} className='w-[60%]  flex flex-col items-center'>
                             <div className="flex items-center justify-around space-x-14 mb-5">
                                 <div className="flex flex-col">
@@ -189,7 +183,7 @@ const Login = ({ history }) => {
                                     <input id="terms" type="checkbox" value="" className="w-6 h-6 mr-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                                     <div className="">
                                         <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-500">{t('Remember for 30 days')}</label>
-                                        <p href="#" className="text-blue-600 hover:underline dark:text-blue-500 text-xs">({t('your profile will appear on the recent logins')})</p>
+                                        {/* <p href="#" className="text-blue-600 hover:underline dark:text-blue-500 text-xs">({t('your profile will appear on the recent logins')})</p> */}
                                     </div>
                                 </div>
                                 <div className="">
@@ -197,20 +191,25 @@ const Login = ({ history }) => {
                                 </div>
                             </div>
                             <div className="mt-5 flex flex-col items-center space-y-4 w-1/2">
-                                <button className='bg-[#053730] text-white w-full h-[40px] rounded-md' type="submit">{t('Sign In')}</button>
-                                <button className='bg-[#EC5A46] text-white w-full h-[40px] rounded-md' type="submit">{t('Create New Account')}</button>
+                                <button className='bg-[#053730] transition hover:bg-[#327269] text-white w-full h-[40px] rounded-md' type="submit">{t('Sign In')}</button>
+                                <div className="relative flex mt-2 items-center w-[50%]">
+                                    <div className="flex-grow border-t border-gray-400"></div>
+                                    <span className="flex-shrink mx-4 text-gray-400">{t('OR')}</span>
+                                    <div className="flex-grow border-t border-gray-400"></div>
+                                </div>
+                                <button className='bg-[#EC5A46] transition hover:bg-[#d34633] text-white w-full h-[40px] rounded-md' type="submit">{t('Create New Account')}</button>
                             </div>
-                            <div className="relative flex mt-2 items-center w-[50%]">
+                            {/* <div className="relative flex mt-2 items-center w-[50%]">
                                 <div className="flex-grow border-t border-gray-400"></div>
                                 <span className="flex-shrink mx-4 text-gray-400">{t('OR')}</span>
                                 <div className="flex-grow border-t border-gray-400"></div>
-                            </div>
+                            </div> */}
 
-                            <div className="relative flex justify-between mt-2 items-center w-[25%]">
+                            {/* <div className="relative flex justify-between mt-2 items-center w-[25%]">
                                 <FcGoogle className='cursor-pointer hover:brightness-95' size={32} />
                                 <BsFacebook className='cursor-pointer hover:brightness-95' size={32} color='#1977F1' />
                                 <BsTwitter className='cursor-pointer hover:brightness-95' size={32} color='#1DA1F1' />
-                            </div>
+                            </div> */}
                         </form>
                     </div>
                 </div>
