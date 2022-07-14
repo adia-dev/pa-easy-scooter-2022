@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
                 setLoading(false)
             }
 
+
             !!user ?
                 fetchUser() :
                 setLoading(false)
