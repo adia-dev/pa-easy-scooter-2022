@@ -35,14 +35,14 @@ const Catalogue = () => {
 
 
         const fetchScooters = async () => {
-            const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `scooters`)
+            const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `scooters`)
             setScooters(data.data)
             console.log(data.data)
             // setLoading(false)
         }
 
         const fetchAccessories = async () => {
-            const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `accessories`)
+            const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `accessories`)
             setAccessories(data.data)
             // console.log(data.data)
             // setLoading(false)
@@ -50,7 +50,7 @@ const Catalogue = () => {
 
         const fetchCartItems = async () => {
             console.log(currentUser);
-            const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `cart/${currentUser.data.id}`)
+            const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `cart/${currentUser.data.id}`)
             setCartItems(data.data)
             console.log(data.data)
             // setLoading(false)

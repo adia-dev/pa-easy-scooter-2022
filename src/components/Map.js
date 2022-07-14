@@ -25,7 +25,7 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
 
             mapRef.current = map;
             const fetchPickupPoints = async () => {
-                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + "pickups");
+                const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + "pickups");
                 console.log(data.data);
 
 
@@ -33,7 +33,7 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
             }
 
             const fetchScooters = async () => {
-                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + "scooters/rides");
+                const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + "scooters/rides");
                 setScooters(data.data)
                 console.log('scooters')
                 console.log(data.data);

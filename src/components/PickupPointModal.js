@@ -29,7 +29,7 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
         console.log(pickupPoint)
 
         const fetchPickupPointScooters = async () => {
-            const result = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `pickups/${pickupPoint.pp_id}/scooters`)
+            const result = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `pickups/${pickupPoint.pp_id}/scooters`)
             const scooters = result.data.scooters;
 
             console.log(scooters);

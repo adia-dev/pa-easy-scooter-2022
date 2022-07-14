@@ -17,7 +17,7 @@ const Confirmed = ({ scooterId }) => {
     useEffect(() => {
 
         const fetchScooter = async () => {
-            const scooter = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + "scooters/pickup/" + id)
+            const scooter = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + "scooters/pickup/" + id)
             console.log(scooter);
             setScooter(scooter.data)
         }
@@ -105,7 +105,7 @@ const Confirmed = ({ scooterId }) => {
                             <span className='font-semibold text-xl text-blue-800'>Ticket</span>
                             <span>Veuillez présenter ce code à l'ecran de la trotinette</span>
                             <div className="flex items-cetner space-x-5">
-                                <QRCode value={`${process.env.REACT_APP_GOOGLE_BASE_URL}unlock/${currentUser.data.id}/${scooter?.id}`} />
+                                <QRCode value={`${process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL}unlock/${currentUser.data.id}/${scooter?.id}`} />
                                 <div className='flex flex-col space-y-5 py-5'>
                                     <span className='font-semibold text-gray-400 text-sm'>SCAN THIS</span>
                                     <span className='font-semibold text-blue-800 '>{scooter?.model_name}</span>

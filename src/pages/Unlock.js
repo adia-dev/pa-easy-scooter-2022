@@ -37,7 +37,7 @@ const Unlock = () => {
         let index = 0;
 
         const unlockScooter = async () => {
-            const result = await axios.post(process.env.REACT_APP_GOOGLE_BASE_URL + 'unlock', { user_id, scooter_id })
+            const result = await axios.post(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + 'unlock', { user_id, scooter_id })
             setCurrentStep(result.data.status === 202 ? { text: steps[steps.length - 1], color: "green" } : { text: "Error", color: 'red', message: 'Une erreur est survenue veuillez contacter le support' })
         }
 

@@ -16,7 +16,7 @@ const UserInfo = ({ userId, setTargetUserId }) => {
     useEffect(() => {
 
         const fetchUser = async () => {
-            const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `users/${userId}`)
+            const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `users/${userId}`)
             setUser(data.data)
             console.log(data.data)
             setLoading(false)

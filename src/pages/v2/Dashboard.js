@@ -92,28 +92,28 @@ const Dashboard2 = () => {
         if (openedTab === "Overview") {
 
             const fetchUsers = async () => {
-                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `users`)
+                const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `users`)
                 setUsers(data.data)
                 // console.log(data.data)
                 // setLoading(false)
             }
 
             const fetchScooters = async () => {
-                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `scooters`)
+                const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `scooters`)
                 setScooters(data.data)
                 console.log(data.data)
                 // setLoading(false)
             }
 
             const fetchRides = async () => {
-                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `rides`)
+                const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `rides`)
                 setRides(data.data)
                 console.log(data.data)
                 // setLoading(false)
             }
 
             const fetchAccessories = async () => {
-                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `accessories`)
+                const data = await axios.get(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `accessories`)
                 setAccessories(data.data)
                 // console.log(data.data)
                 // setLoading(false)

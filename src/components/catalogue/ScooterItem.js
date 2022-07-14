@@ -14,7 +14,7 @@ const ScooterItem = ({ scooter, scooters, cartItems, setCartItems, cartId }) => 
         });
 
         const addItemToCart = async () => {
-            await axios.post(process.env.REACT_APP_GOOGLE_BASE_URL + 'cart/product', {
+            await axios.post(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + 'cart/product', {
                 shopping_cart_id: cartId,
                 product_id: itemId
             })
@@ -30,7 +30,7 @@ const ScooterItem = ({ scooter, scooters, cartItems, setCartItems, cartId }) => 
 
     const handleRemoveItemFromCart = (itemId) => {
         const removeItemFromCart = async () => {
-            const data = await axios.delete(process.env.REACT_APP_GOOGLE_BASE_URL + `cart/${cartId}/product/${itemId}`)
+            const data = await axios.delete(process.env.REACT_APP_EASY_SCOOTER_API_BASE_URL + `cart/${cartId}/product/${itemId}`)
             console.log(data);
             setCartItems(cartItems.filter((item) => item.id !== itemId))
 
