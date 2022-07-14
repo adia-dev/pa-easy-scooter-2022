@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaInfoCircle } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 import ScooterInfoModal from './ScooterInfoModal';
 
 
@@ -9,12 +11,31 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
     const timeOptions = [];
     const [count, setCount] = useState(0)
     const [showScooterInfoModal, setShowScooterInfoModal] = useState(false)
+    const [pickupPointScooters, setPickupPointScooters] = useState([])
     const [currentScooter, setCurrentScooter] = useState(null)
 
     for (let i = 0; i < 24; i++) {
         timeOptions.push(`${i.toString().padStart(2, '0')}:00`)
         timeOptions.push(`${i.toString().padStart(2, '0')}:30`)
     }
+
+    useEffect(() => {
+
+        console.log(pickupPoint)
+
+        const fetchPickupPointScooters = async () => {
+            const result = await axios.get(`http://localhost:5500/api/v2/pickups/${pickupPoint.pp_id}/scooters`)
+            const scooters = result.data.scooters;
+
+            console.log(scooters);
+
+            setPickupPointScooters(scooters)
+        }
+
+        fetchPickupPointScooters()
+
+    }, [pickupPoint])
+
 
 
     return (
@@ -39,78 +60,33 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
                         </select>
                     </div>
                 </div>
-                <div className="bg-white p-5 rounded-xl mb-3">
+                {/* <div className="bg-white p-5 rounded-xl mb-3">
+
                     <div className="flex items-center">
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(2)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-green-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>2</span>
-                            </div>
-                            <span className='text-sm font-semibold'>A1</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(2)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-green-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>2</span>
-                            </div>
-                            <span className='text-sm font-semibold'>B1</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(0)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-gray-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>0</span>
-                            </div>
-                            <span className='text-sm font-semibold'>C1</span>
-                        </div>
+                        {
+                            pickupPointScooters.map((scooter, i) => (
+                                <div key={i} className="flex flex-col items-center">
+                                    <div onClick={() => setCount(2)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-green-400  flex items-center justify-center text-white text-xs font-semibold'>
+                                        <span>2</span>
+                                    </div>
+                                    <span className='text-sm font-semibold'>{scooter.row + scooter.col}</span>
+                                </div>
+                            ))
+                        }
                     </div>
-                    <div className="flex items-center">
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(2)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-green-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>2</span>
-                            </div>
-                            <span className='text-sm font-semibold'>A2</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(2)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-green-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>2</span>
-                            </div>
-                            <span className='text-sm font-semibold'>B2</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(0)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-gray-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>0</span>
-                            </div>
-                            <span className='text-sm font-semibold'>C2</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(2)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-green-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>2</span>
-                            </div>
-                            <span className='text-sm font-semibold'>D2</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(8)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-blue-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>8</span>
-                            </div>
-                            <span className='text-sm font-semibold'>E2</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div onClick={() => setCount(7)} className='w-[35px] aspect-[1/1.35] mr-[2px] cursor-pointer hover:scale-105 transition duration-150 bg-gray-400  flex items-center justify-center text-white text-xs font-semibold'>
-                                <span>7</span>
-                            </div>
-                            <span className='text-sm font-semibold'>F2</span>
-                        </div>
-                    </div>
-                </div>
+                </div> */}
                 <div className="bg-white p-3 rounded-xl flex-1 flex-col flex">
                     <p className='p-1 font-semibold uppercase'>Scooters</p>
                     <div className="flex-1 flex items-center space-x-3 w-full">
 
                         {
-                            [...Array(count)].map((scooter, i) => (
+                            pickupPointScooters.map((scooter, i) => (
                                 <div key={i} className="h-full bg-gray-100 border overflow-hidden border-gray-200 w-[250px] rounded-md flex flex-col relative">
                                     <div onClick={() => setShowScooterInfoModal(true)} className="absolute right-2 top-2 text-gray-500 cursor-pointer hover:scale-110 transition active:scale-100">
                                         <FaInfoCircle />
                                     </div>
-                                    <img className='flex-1 object-contain w-full' src="https://www.wispeed.net/5358-thickbox_default/wispeed-trottinette-suv1000.jpg" alt="" />
-                                    <div className='p-3 bg-white'>Hello</div>
+                                    <img className='flex-1 object-contain w-full' src={scooter.image_url} alt="" />
+                                    <Link to="/v2/booking/checkout" className='p-3 bg-blue-500 text-white flex justify-center items-center cursor-pointer font-semibold uppercase'>Book</Link>
                                 </div>
                             ))
                         }

@@ -3,7 +3,7 @@ import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { SiMetrodeparis } from 'react-icons/si'
 const BookOption = ({ address, setShowPickupPointModal, setCurrentPickupPoint, panTo, pickupPoint }) => {
     return (
-        <div className="border  px-3 py-4 rounded-md w-full">
+        <div className="border  px-3 my-3 py-4 rounded-md w-full">
             <div className="flex items-center space-x-2 mb-2">
                 <div className="flex items-center space-x-1">
                     <div className="bg-green-500 h-2 w-5 rounded-md"></div>
@@ -39,7 +39,7 @@ const BookOption = ({ address, setShowPickupPointModal, setCurrentPickupPoint, p
             <hr className='my-2' />
             <div className="flex items-cemter space-x-3">
                 <button onClick={() => { panTo({ lat: pickupPoint.lat, lng: pickupPoint.lng }); setShowPickupPointModal(true); setCurrentPickupPoint(pickupPoint) }} className='bg-blue-500 p-2 rounded-md text-white text-sm'>Book a scooter</button>
-                <button className='bg-orange-500 p-2 rounded-md text-white text-sm'>Check the scooters models</button>
+                {/* <button className='bg-orange-500 p-2 rounded-md text-white text-sm'>Check the scooters models</button> */}
             </div>
         </div>
     )
