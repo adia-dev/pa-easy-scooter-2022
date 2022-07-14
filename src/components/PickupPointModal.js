@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaArrowLeft, FaInfoCircle } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import { AuthContext } from '../core/AuthProvider';
+import Stripe from "../pages/Stripe";
 import ScooterInfoModal from './ScooterInfoModal';
 
 
@@ -13,6 +14,9 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
     const [showScooterInfoModal, setShowScooterInfoModal] = useState(false)
     const [pickupPointScooters, setPickupPointScooters] = useState([])
     const [currentScooter, setCurrentScooter] = useState(null)
+    const [checkoutOpened, setCheckoutOpened] = useState(false)
+
+    const { currentUser } = useContext(AuthContext)
 
     for (let i = 0; i < 24; i++) {
         timeOptions.push(`${i.toString().padStart(2, '0')}:00`)
@@ -53,12 +57,12 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
                             </span>
                         </div>
                     </div>
-                    <div className='flex items-center space-x-2'>
+                    {/* <div className='flex items-center space-x-2'>
                         <input type="date" name="booking_date_time" id="" className='border-gray-300 text-gray-500 text-sm rounded-lg ' />
                         <select name="time" className='border-gray-300 text-gray-500 text-sm rounded-lg '>
                             {timeOptions.map((time, i) => <option key={i} value={time} >{time}</option>)}
                         </select>
-                    </div>
+                    </div> */}
                 </div>
                 {/* <div className="bg-white p-5 rounded-xl mb-3">
 
@@ -78,7 +82,7 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
                 <div className="bg-white p-3 rounded-xl flex-1 flex-col flex">
                     <p className='p-1 font-semibold uppercase'>Scooters</p>
                     <div className="flex-1 flex items-center space-x-3 w-full">
-
+                        {checkoutOpened && <Stripe setCheckoutOpened={setCheckoutOpened} scooter={currentScooter} cartItems={[{ price_per_units: currentScooter.price_per_units, display_name: currentScooter.name, currentScooter }]} user={currentUser} amount={currentScooter.price_per_units} />}
                         {
                             pickupPointScooters.map((scooter, i) => (
                                 <div key={i} className="h-full bg-gray-100 border overflow-hidden border-gray-200 w-[250px] rounded-md flex flex-col relative">
@@ -86,7 +90,7 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
                                         <FaInfoCircle />
                                     </div>
                                     <img className='flex-1 object-contain w-full' src={scooter.image_url} alt="" />
-                                    <Link to="/v2/booking/checkout" className='p-3 bg-blue-500 text-white flex justify-center items-center cursor-pointer font-semibold uppercase'>Book</Link>
+                                    <div onClick={() => { setCurrentScooter(scooter); setCheckoutOpened(true) }} className='p-3 bg-blue-500 text-white flex justify-center items-center cursor-pointer font-semibold uppercase'>Book</div>
                                 </div>
                             ))
                         }

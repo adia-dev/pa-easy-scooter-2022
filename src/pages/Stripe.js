@@ -2,9 +2,9 @@
 import { FaTimes } from "react-icons/fa";
 import StripeContainer from ".././components/StripeContainer";
 
-const Stripe = ({ user, setCheckoutOpened, cartItems, amount }) => {
+const Stripe = ({ user, setCheckoutOpened, cartItems, amount, scooter }) => {
 
-
+  console.log(cartItems)
 
 
   return (
@@ -46,7 +46,7 @@ const Stripe = ({ user, setCheckoutOpened, cartItems, amount }) => {
         <span className="text-gray-500">
           Veuillez entrer vos informations bancaires :
         </span>
-        {<StripeContainer setCheckoutOpened={setCheckoutOpened} amount={amount} />}
+        {<StripeContainer setCheckoutOpened={setCheckoutOpened} amount={amount} scooter={scooter} />}
       </div>
     </div>
   );

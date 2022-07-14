@@ -15,7 +15,6 @@ const DropdownMenu = () => {
     const calcHeight = (el) => {
         const height = el.offsetHeight;
         setMenuHeight(height + 25);
-
     }
 
     const { currentUser } = useContext(AuthContext)

@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -23,10 +24,17 @@ const CARD_OPTIONS = {
   },
 };
 
-export default function PaymentForm({ amount, setCheckoutOpened }) {
+export default function PaymentForm({ amount, setCheckoutOpened, scooter = null }) {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate()
+
+  const handlePaiementSuccess = () => {
+    setCheckoutOpened(false)
+    !!scooter && navigate("/v2/booking/confirmed/" + scooter.id)
+
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,7 +85,7 @@ export default function PaymentForm({ amount, setCheckoutOpened }) {
           </button>
         </form>
       ) : (
-        setCheckoutOpened(false)
+        handlePaiementSuccess()
       )}
     </>
   );
