@@ -23,7 +23,7 @@ const Map = ({ mapRef, target, isLoaded, centerCoords, customOptions, pickupPoin
         (map) => {
             mapRef.current = map;
             const fetchPickupPoints = async () => {
-                const data = await axios.get("http://localhost:5500/api/v2/pickups");
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + "pickups");
                 console.log(data.data);
 
                 if (navigator && navigator.geolocation) {

@@ -90,21 +90,21 @@ const Dashboard2 = () => {
         if (openedTab === "Overview") {
 
             const fetchUsers = async () => {
-                const data = await axios.get(`http://localhost:5500/api/v2/users`)
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `users`)
                 setUsers(data.data)
                 // console.log(data.data)
                 // setLoading(false)
             }
 
             const fetchScooters = async () => {
-                const data = await axios.get(`http://localhost:5500/api/v2/scooters`)
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `scooters`)
                 setScooters(data.data)
                 console.log(data.data)
                 // setLoading(false)
             }
 
             const fetchAccessories = async () => {
-                const data = await axios.get(`http://localhost:5500/api/v2/accessories`)
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `accessories`)
                 setAccessories(data.data)
                 // console.log(data.data)
                 // setLoading(false)

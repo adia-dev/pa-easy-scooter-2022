@@ -15,7 +15,8 @@ const AuthProvider = ({ children }) => {
             setCurrentUser(user)
 
             const fetchUser = async () => {
-                const data = await axios.get(`http://localhost:5500/api/v2/users/firebase/${user.uid}`)
+                console.log(process.env);
+                const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `users/firebase/${user.uid}`)
                 setCurrentUser({ ...user, data: data.data })
                 setLoading(false)
             }
