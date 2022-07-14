@@ -9,6 +9,7 @@ const scootersRouter = require('./routes/scooters');
 const accessoriesRouter = require('./routes/accessories');
 const cartRouter = require('./routes/cart');
 const rolesRouter = require('./routes/roles');
+const pickupPoints = require('./routes/pickupPoints');
 
 // app.use(bodyParser.json())
 app.use(cors());
@@ -16,15 +17,13 @@ app.use(logger('dev'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
 
 app.use('/api/v2/users', usersRouter);
 app.use('/api/v2/scooters', scootersRouter);
 app.use('/api/v2/accessories', accessoriesRouter);
 app.use('/api/v2/cart', cartRouter);
 app.use('/api/v2/roles', rolesRouter);
+app.use('/api/v2/pickups', pickupPoints);
 
 
 app.listen(port, () => {
