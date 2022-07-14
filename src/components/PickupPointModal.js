@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { t } from 'i18next';
 import React, { useContext, useEffect, useState } from 'react';
 import { FaArrowLeft, FaInfoCircle } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
@@ -80,13 +81,13 @@ const PickupPointModal = ({ setShowPickupPointModal, pickupPoint }) => {
                     </div>
                 </div> */}
                 <div className="bg-white p-3 rounded-xl flex-1 flex-col flex">
-                    <p className='p-1 font-semibold uppercase'>Scooters</p>
+                    <p className='p-1 font-semibold uppercase'>{t`Scooters`}</p>
                     <div className="flex-1 flex items-center space-x-3 w-full">
                         {checkoutOpened && <Stripe setCheckoutOpened={setCheckoutOpened} scooter={currentScooter} cartItems={[{ price_per_units: currentScooter.price_per_units, display_name: currentScooter.name, currentScooter }]} user={currentUser} amount={currentScooter.price_per_units} />}
                         {
                             pickupPointScooters.map((scooter, i) => (
                                 <div key={i} className="h-full bg-gray-100 border overflow-hidden border-gray-200 w-[250px] rounded-md flex flex-col relative">
-                                    <div onClick={() => setShowScooterInfoModal(true)} className="absolute right-2 top-2 text-gray-500 cursor-pointer hover:scale-110 transition active:scale-100">
+                                    <div onClick={() => setShowScooterInfoModal(false)} className="absolute right-2 top-2 text-gray-500 cursor-pointer hover:scale-110 transition active:scale-100">
                                         <FaInfoCircle />
                                     </div>
                                     <img className='flex-1 object-contain w-full' src={scooter.image_url} alt="" />

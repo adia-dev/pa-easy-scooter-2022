@@ -1,15 +1,14 @@
 import axios from "axios";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { AiOutlineMessage, AiOutlinePieChart } from "react-icons/ai";
-import { BiFilter, BiPencil, BiSearch, BiStats } from "react-icons/bi";
+import { BiPencil, BiStats } from "react-icons/bi";
 import { BsEye, BsFillQuestionCircleFill, BsThreeDots, BsTwitter } from 'react-icons/bs';
-import { FaAirbnb, FaBell, FaPinterest, FaUsers } from "react-icons/fa";
+import { FaAirbnb, FaPinterest, FaUsers } from "react-icons/fa";
 import { GiCalendarHalfYear, GiFullMotorcycleHelmet, GiReturnArrow } from "react-icons/gi";
-import { GoBroadcast } from "react-icons/go";
 import { HiPlusSm } from "react-icons/hi";
 import { IoIosConstruct, IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { MdElectricScooter, MdOutlineElectricScooter } from "react-icons/md";
-import { RiUser6Line } from "react-icons/ri";
 import { SiTesla, SiXiaomi } from 'react-icons/si';
 import { TiTimes } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
@@ -149,23 +148,23 @@ const Dashboard2 = () => {
                 <nav className="ml-5">
                     <ul className="flex items-center space-x-3 text-sm">
                         <li onClick={() => handleNavigateTabs("Overview")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Overview" && 'text-white bg-gray-800'}`}>Overview</li>
-                        <li onClick={() => navigate("/v2/dashboard/map")} className={`cursor-pointer text-green-600 hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Map" && 'text-white bg-gray-800'}`}>Map</li>
-                        <li onClick={() => handleNavigateTabs("Products")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Products" && 'text-white bg-gray-800'}`}>Products</li>
+                        <li onClick={() => navigate("/dashboard/map")} className={`cursor-pointer text-green-600 hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Map" && 'text-white bg-gray-800'}`}>Map</li>
+                        {/* <li onClick={() => handleNavigateTabs("Products")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Products" && 'text-white bg-gray-800'}`}>Products</li>
                         <li onClick={() => handleNavigateTabs("Documents")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Documents" && 'text-white bg-gray-800'}`}>Documents</li>
                         <li onClick={() => handleNavigateTabs("Orders")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Orders" && 'text-white bg-gray-800 '}`}>Orders</li>
-                        <li onClick={() => handleNavigateTabs("Partners")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Partners" && 'text-white bg-gray-800'}`}>Partners</li>
+                        <li onClick={() => handleNavigateTabs("Partners")} className={`cursor-pointer hover:bg-gray-100 rounded-full px-2 py-1 ${openedTab === "Partners" && 'text-white bg-gray-800'}`}>Partners</li> */}
                     </ul>
                 </nav>
-                <div className="flex-1 flex justify-end items-center space-x-3">
+                {/* <div className="flex-1 flex justify-end items-center space-x-3">
                     <div className="relative">
                         <div className="w-2 aspect-square bg-red-500 rounded-full absolute -right-1 -top-1 animate-pulse"></div>
                         <FaBell size={22} />
                     </div>
                     <RiUser6Line size={22} />
-                </div>
+                </div> */}
             </div>
 
-            <div className="w-full bg-gray-100 mt-3 h-[35px] rounded-xl px-3 py-1 flex items-center justify-between">
+            {/* <div className="w-full bg-gray-100 mt-3 h-[35px] rounded-xl px-3 py-1 flex items-center justify-between">
                 <BiSearch />
                 <input className="h-full bg-transparent mx-3 outline-none border-none flex-1 text-md text-gray-500 text-sm" type="search" name="search" id="search" placeholder="Search" />
                 <div className="flex items-center space-x-2">
@@ -187,13 +186,13 @@ const Dashboard2 = () => {
                         Report
                     </span>
                 </div>
-            </div>
+            </div> */}
 
             {
                 openedTab === "Overview" && <div className="">
 
                     <div className="flex items-center space-x-4 mt-5">
-                        <h1 className="font-semibold">Analytics</h1>
+                        <h1 className="font-semibold">{t`Analytics`}</h1>
                         {/* <div className="flex items-center text-gray-500 text-xs">
                             <span>Basic preset</span>
                             <IoMdArrowDropdown />
@@ -205,7 +204,7 @@ const Dashboard2 = () => {
                             <div className="flex items-center space-x-3">
                                 <MdElectricScooter size={48} />
                                 <div className="">
-                                    <p>Rides</p>
+                                    <p>{t`Rides`}</p>
                                     {/* <span className="text-xs text-gray-500">1AM - 6PM</span> */}
                                 </div>
                             </div>
@@ -213,7 +212,7 @@ const Dashboard2 = () => {
                                 <div className="flex items-center hover:bg-gray-100 rounded-lg cursor-pointer h-[33%] p-2">
                                     <BiStats size={18} />
                                     <span className="font-[500] mx-2 text-xl">{rides.length}</span>
-                                    <span className="text-gray-400 text-xs font-light">Total</span>
+                                    <span className="text-gray-400 text-xs font-light">{t`Total`}</span>
                                     <div className="flex-1 flex justify-end items-center">
                                         <IoMdArrowDropright />
                                     </div>
@@ -221,7 +220,7 @@ const Dashboard2 = () => {
                                 <div className="flex items-center hover:bg-gray-100 rounded-lg cursor-pointer h-[33%] p-2">
                                     <AiOutlineMessage size={18} />
                                     <span className="font-[500] mx-2 text-xl">{rides.filter((ride) => ride.status === 'PROBLEM').length}</span>
-                                    <span className="text-gray-400 text-xs font-light">Issues</span>
+                                    <span className="text-gray-400 text-xs font-light">{t`Issues`}</span>
                                     <div className="flex-1 flex justify-end items-center">
                                         <IoMdArrowDropright />
                                     </div>
@@ -229,7 +228,7 @@ const Dashboard2 = () => {
                                 <div className="flex items-center hover:bg-gray-100 rounded-lg cursor-pointer h-[33%] p-2">
                                     <GiReturnArrow size={18} />
                                     <span className="font-[500] mx-2 text-xl ">{rides.filter((ride) => ride.status === 'CANCELED').length}</span>
-                                    <span className="text-gray-400 text-xs font-light">Return</span>
+                                    <span className="text-gray-400 text-xs font-light">{t`Return`}</span>
                                     <div className="flex-1 flex justify-end items-center">
                                         <IoMdArrowDropright />
                                     </div>
@@ -241,7 +240,7 @@ const Dashboard2 = () => {
                                 <div className="flex items-center space-x-3">
                                     <AiOutlinePieChart size={48} />
                                     <div className="">
-                                        <p>Productivity</p>
+                                        <p>{t`Productivity`}</p>
                                         <span className="text-xs text-gray-500">By type</span>
                                     </div>
                                 </div>
@@ -269,7 +268,7 @@ const Dashboard2 = () => {
                     </div>
 
                     <div className="flex items-center space-x-4 mt-5">
-                        <h1 className="font-semibold">Numbers</h1>
+                        <h1 className="font-semibold">{t`Numbers`}</h1>
                         <div className="flex items-center text-gray-500 text-xs">
                             <span>Basic preset</span>
                             <IoMdArrowDropdown />
@@ -280,7 +279,7 @@ const Dashboard2 = () => {
                         <div className="bg-white flex-1 aspect-[1/0.5] rounded-xl flex flex-col">
                             <div className="flex items-center space-x-3 p-5 border-b border-gray-100">
                                 <FaUsers size={32} />
-                                <span>Users</span>
+                                <span>{t`Users`}</span>
                             </div>
                             <div className="flex items-center p-3 flex-1 w-full">
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
@@ -289,31 +288,31 @@ const Dashboard2 = () => {
                                 </div>
                                 <div onClick={() => handleNavigateTabs("Partners")} className="flex-1 w-full cursor-pointer flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">{users.filter((user) => user.role === 'PARTNER').length}</p>
-                                    <p className="text-xs text-gray-400">Partners</p>
+                                    <p className="text-xs text-gray-400">{t`Partners`}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="bg-white flex-1 aspect-[1/0.5] rounded-xl flex flex-col">
                             <div className="flex items-center space-x-3 p-5 border-b border-gray-100">
                                 <MdOutlineElectricScooter size={32} />
-                                <span>Scooters</span>
+                                <span>{t`Scooters`}</span>
                             </div>
                             <div className="flex items-center p-3 flex-1 w-full">
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">{scooters.length}</p>
-                                    <p className="text-xs text-gray-400">Total Scooters</p>
+                                    <p className="text-xs text-gray-400">Total {t`Scooters`}</p>
                                 </div>
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">{scooters.filter((scooter) => scooter.status === 'MAINTENANCE').length}</p>
-                                    <p className="text-xs text-gray-400">In Maintenance</p>
+                                    <p className="text-xs text-gray-400">{t`In Maintenance`}</p>
                                 </div>
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">{scooters.filter((scooter) => scooter.status === 'AVAILABLE').length}</p>
-                                    <p className="text-xs text-gray-400">Available</p>
+                                    <p className="text-xs text-gray-400">{t`Available`}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-white flex-1 aspect-[1/0.5] rounded-xl flex flex-col">
+                        {/* <div className="bg-white flex-1 aspect-[1/0.5] rounded-xl flex flex-col">
                             <div className="flex items-center space-x-3 p-5 border-b border-gray-100">
                                 <GoBroadcast size={32} />
                                 <span>Orders</span>
@@ -328,27 +327,27 @@ const Dashboard2 = () => {
                                     <p className="text-xs text-gray-400">Growth</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="bg-white flex-1 aspect-[1/0.5] rounded-xl flex flex-col">
                             <div className="flex items-center space-x-3 p-5 border-b border-gray-100">
                                 <GiFullMotorcycleHelmet size={32} />
-                                <span>Accessories</span>
+                                <span>{t`Accessories`}</span>
                             </div>
                             <div className="flex items-center p-3 flex-1 w-full">
                                 <div className="flex-1 border-r border-gray-100 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">{Math.ceil(accessories.length / 3)}</p>
-                                    <p className="text-xs text-gray-400">Sold</p>
+                                    <p className="text-xs text-gray-400">{t`Sold`}</p>
                                 </div>
                                 <div className="flex-1 w-full flex-col items-center justify-center text-center ">
                                     <p className="font-semibold text-3xl mb-2">{accessories.length}</p>
-                                    <p className="text-xs text-gray-400">Total</p>
+                                    <p className="text-xs text-gray-400">{t`Total`}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex items-center space-x-4 mt-5">
-                        <h1 className="font-semibold">Users</h1>
+                        <h1 className="font-semibold">{t`Users`}</h1>
                         <div className="flex items-center text-gray-500 text-xs">
                             <span>{users.length}</span>
                             <IoMdArrowDropdown />
@@ -367,7 +366,7 @@ const Dashboard2 = () => {
                                         </div>
                                     </th>
                                     <th scope="col" className="py-3 text-xs font-medium tracking-wider text-left uppercase ">
-                                        Full Name
+                                        {t`Full Name`}
                                     </th>
                                     <th scope="col" className="py-3 text-xs font-medium tracking-wider text-left uppercase ">
                                         Email
@@ -376,10 +375,10 @@ const Dashboard2 = () => {
                                         Role
                                     </th>
                                     <th scope="col" className="py-3 text-xs font-medium tracking-wider text-left uppercase ">
-                                        Last Activity
+                                        {t`Last Activity`}
                                     </th>
                                     <th scope="col" className="py-3 text-xs font-medium tracking-wider text-left uppercase ">
-                                        Status
+                                        {t`Status`}
                                     </th>
                                     <th scope="col" className="py-3 text-xs font-medium tracking-wider text-left uppercase ">
 

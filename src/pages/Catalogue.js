@@ -1,13 +1,12 @@
 import axios from "axios"
 import { t } from "i18next"
 import { useContext, useEffect, useState } from "react"
-import { BiCaretDown, BiCart, BiFilter, BiTrashAlt } from "react-icons/bi"
+import { BiCaretDown, BiCart, BiFilter } from "react-icons/bi"
 import { BsSearch } from "react-icons/bs"
 import { FaTimesCircle } from "react-icons/fa"
 import Cart from "../components/catalogue/Cart"
 import ScooterItem from "../components/catalogue/ScooterItem"
 import Header from "../components/Header"
-import MinMaxInput from "../components/MinMaxInput"
 import { AuthContext } from "../core/AuthProvider"
 import Stripe from "./Stripe"
 
@@ -19,6 +18,7 @@ const Catalogue = () => {
     const [checkoutOpened, setCheckoutOpened] = useState(false)
     const [scooters, setScooters] = useState([])
     const [accessories, setAccessories] = useState([])
+
 
     const [filters, Setfilters] = useState({
         brands: [],
@@ -49,6 +49,7 @@ const Catalogue = () => {
         }
 
         const fetchCartItems = async () => {
+            console.log(currentUser);
             const data = await axios.get(process.env.REACT_APP_GOOGLE_BASE_URL + `cart/${currentUser.data.id}`)
             setCartItems(data.data)
             console.log(data.data)
@@ -114,10 +115,14 @@ const Catalogue = () => {
         }
     }
 
+
     return (
         <div className="w-full h-full overflow-x-hidden">
 
-            {checkoutOpened && cartItems.length > 0 && <Stripe setCheckoutOpened={setCheckoutOpened} cartItems={cartItems} user={currentUser} amount={cartItems.length > 1 ? cartItems.map((item) => item.price_per_units).reduce((acc, current) => acc + current) : cartItems[0].price_per_units + Math.min(cartItems.length * 8, 24.99)} />}
+            {checkoutOpened && cartItems.length > 0 && <Stripe
+                setCheckoutOpened={setCheckoutOpened}
+                cartItems={cartItems} user={currentUser}
+                amount={cartItems.length > 1 ? cartItems.map((item) => item.price_per_units).reduce((acc, current) => acc + current) : cartItems[0].price_per_units + Math.min(cartItems.length * 8, 24.99)} />}
 
             <Header />
             <div className="p-10 w-full h-full">
@@ -133,7 +138,7 @@ const Catalogue = () => {
                 </div>
 
                 <div className="flex w-full h-full space-x-2 ">
-                    <div className="w-3/12 h-full py-2  space-y-4 ">
+                    {/* <div className="w-3/12 h-full py-2  space-y-4 ">
                         <MinMaxInput min={2500} max={7500} width={300} />
                         <div className="">
                             <p className="font-semibold">{t("Brand")}</p>
@@ -187,7 +192,7 @@ const Catalogue = () => {
                                 <BiTrashAlt />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="flex-1 h-full p-3 ">
                         <div className="flex items-center justify-around space-x-4">
                             <div className="relative text-gray-600 focus-within:text-gray-400 flex-1">
@@ -230,11 +235,6 @@ const Catalogue = () => {
 
 
                         <div className="flex items-center flex-wrap p-5">
-                            {
-                                scooters.filter((scooter) => (true || filters.brands === [] || filters.brands.includes(scooter.brand))).map((scooter, i) => (
-                                    <ScooterItem key={"scooter-item-" + i} cartId={1} scooter={scooter} scooters={scooters} cartItems={cartItems} setCartItems={setCartItems} />
-                                ))
-                            }
                             {
                                 accessories.filter((scooter) => (true || filters.brands === [] || filters.brands.includes(scooter.brand))).map((scooter, i) => (
                                     <ScooterItem key={"scooter-item-" + i} cartId={1} scooter={scooter} scooters={accessories} cartItems={cartItems} setCartItems={setCartItems} />

@@ -1,9 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { AiOutlineCheckCircle, AiOutlineClose, AiOutlineEdit, AiOutlineEuro, AiOutlineLoading3Quarters } from "react-icons/ai"
-import { BiExitFullscreen, BiFullscreen, BiPhone, BiUser } from "react-icons/bi"
-import { BsThreeDots } from "react-icons/bs"
-import { CgCalendarDates, CgMail } from "react-icons/cg"
+import { AiOutlineCheckCircle, AiOutlineClose, AiOutlineEdit, AiOutlineLoading3Quarters } from "react-icons/ai"
+import { BiExitFullscreen, BiFullscreen, BiPhone } from "react-icons/bi"
+import { CgMail } from "react-icons/cg"
 import { HiOutlineLocationMarker } from "react-icons/hi"
 
 const UserInfo = ({ userId, setTargetUserId }) => {
@@ -73,24 +72,15 @@ const UserInfo = ({ userId, setTargetUserId }) => {
                             <span className="mt-4 text-xs font-semibold">•</span>
                             <span className="mt-4 text-xs font-semibold">LYON</span>
                             <span className="mt-4 text-xs font-semibold">•</span>
-                            <span className="mt-4 text-xs font-semibold">Melbourne, Australie</span>
+                            <span className="mt-4 text-xs font-semibold">{user.address_name}</span>
                         </div>
                     </div>
                 </div>
-                <div className="py-3 flex items-center space-x-3 text-xs text-gray-700 mt-2">
-                    <div className="flex items-center space-x-2">
-                        <CgCalendarDates size={18} />
-                        <span>Joined Mar 2022</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <BiUser size={18} />
-                        <span>Last activity {user.last_activity ?? "7 days ago"}</span>
-                    </div>
-                </div>
+
                 <div className=" flex items-center space-x-3 text-xs text-gray-700 mt-2">
                     <div className="flex items-center space-x-2 border rounded-lg px-2 py-1 hover:bg-gray-200 cursor-pointer">
                         <CgMail size={18} />
-                        <span>Joined Mar 2022</span>
+                        <span>Rejoint en Mai 2022</span>
                     </div>
                     <div className="flex items-center space-x-2 border rounded-lg px-2 py-1 hover:bg-gray-200 cursor-pointer">
                         <BiPhone size={18} />
@@ -98,9 +88,9 @@ const UserInfo = ({ userId, setTargetUserId }) => {
                     </div>
                 </div>
 
-                <h3 className="mt-6 font-semibold uppercase">Last 3 Activities</h3>
+                {/* <h3 className="mt-6 font-semibold uppercase">Last 3 Activities</h3> */}
 
-                <div className="flex items-center justify-center space-x-3 py-3">
+                {/* <div className="flex items-center justify-center space-x-3 py-3">
                     <div className="border flex-1 rounded-lg p-2">
                         <div className="flex justify-between mt-1">
                             <div className="flex items-center space-x-2 bg-green-100 rounded-full text-xs py-1 px-2">
@@ -165,7 +155,7 @@ const UserInfo = ({ userId, setTargetUserId }) => {
                     </div>
 
 
-                </div>
+                </div> */}
 
                 <div className="flex items-center space-x-5 mt-2 w-full border-b font-semibold  text-sm">
                     <div className="border-b-[3px] border-violet-500 text-violet-500 pb-3">
@@ -192,43 +182,7 @@ const UserInfo = ({ userId, setTargetUserId }) => {
                         </div>
                         <div className="text-gray-400 text-xs">
                             <span className="text-xs">9:00 AM, Apr 8 2022</span>
-                            <p><span className="font-semibold text-sm text-gray-800">Arrived</span> in <span className="font-semibold text-sm text-gray-800">Paris</span></p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-3 py-3 mt-3">
-                        <div className="w-12 aspect-square mt-1 relative bg-gray-100 text-gray-500 rounded-full flex items-center justify-center">
-                            <HiOutlineLocationMarker size={22} />
-                            <div className="absolute top-full my-2 left-0 w-full flex justify-center items-center h-6">
-                                <div className="w-[2px] h-full bg-gray-200"></div>
-                            </div>
-                        </div>
-                        <div className="text-gray-400 text-xs">
-                            <span className="text-xs">9:00 AM, Apr 8 2022</span>
-                            <p><span className="font-semibold text-sm text-gray-800">Arrived</span> in <span className="font-semibold text-sm text-gray-800">Paris</span></p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-3 py-3 mt-3">
-                        <div className="w-12 aspect-square mt-1 relative bg-green-200 text-green-600 rounded-full flex items-center justify-center">
-                            <AiOutlineEuro size={22} />
-                            <div className="absolute top-full my-2 left-0 w-full flex justify-center items-center h-6">
-                                <div className="w-[2px] h-full bg-gray-200"></div>
-                            </div>
-                        </div>
-                        <div className="text-gray-400 text-xs">
-                            <span className="text-xs">9:00 AM, Apr 8 2022</span>
-                            <p><span className="font-semibold text-sm text-gray-800">Payment</span> of <span className="font-semibold text-sm text-gray-800">$99.00</span> for <span className="font-semibold text-sm text-gray-800">Limited edition Helmet</span></p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-3 py-3 mt-3">
-                        <div className="w-12 aspect-square mt-1 relative bg-gray-100 text-gray-500 rounded-full flex items-center justify-center">
-                            <HiOutlineLocationMarker size={22} />
-                            {/* <div className="absolute top-full my-2 left-0 w-full flex justify-center items-center h-6">
-                                <div className="w-[2px] h-full bg-gray-200"></div>
-                            </div> */}
-                        </div>
-                        <div className="text-gray-400 text-xs">
-                            <span className="text-xs">9:00 AM, Apr 8 2022</span>
-                            <p><span className="font-semibold text-sm text-gray-800">Arrived</span> in <span className="font-semibold text-sm text-gray-800">Paris</span></p>
+                            <p><span className="font-semibold text-sm text-gray-800">Début de course</span> à <span className="font-semibold text-sm text-gray-800">6 Rue Gerbe, Lyon</span></p>
                         </div>
                     </div>
                 </div>

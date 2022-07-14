@@ -39,7 +39,7 @@ export default
                 {
                     name: "Scooters",
                     icon: MdElectricScooter,
-                    path: "/v2/booking"
+                    path: "/booking"
                 },
                 {
                     name: "Products",
@@ -67,7 +67,7 @@ export default
                 {
                     name: "Scooters",
                     icon: MdElectricScooter,
-                    path: "/v2/booking"
+                    path: "/booking"
                 },
                 {
                     name: "Products",
@@ -82,7 +82,7 @@ export default
                 {
                     name: "Dashboard",
                     icon: GoDashboard,
-                    path: "/v2/dashboard"
+                    path: "/dashboard"
                 },
                 {
                     name: "Contact",

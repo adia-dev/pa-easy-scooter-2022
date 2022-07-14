@@ -86,9 +86,9 @@ const Header = () => {
                             <img className='h-full rounded-full' src={currentUser.data.pfp_path ?? "https://scontent.fcdg4-1.fna.fbcdn.net/v/t1.6435-9/106476575_1010938885989869_2837272586752487393_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9zka7JjJZR8AX_HRM_c&_nc_oc=AQkIZBBfd0dCjVmGVbSJByIaLHzmMfKswyH9NwscS8AGWHOuk7Kuia2rCmGpcaayw8k&_nc_ht=scontent.fcdg4-1.fna&oh=00_AT8LiipsxyaoE-4SXYj7hDKuGZuRaFoNhGHqAukP92vuGA&oe=62B44EC4"} alt="" />
                             <span className='font-semibold text-orange-800'>{currentUser.data.display_name ?? "undefined"}</span>
                         </div>
-                        <div className="p-3 bg-orange-100 rounded-full text-orange-800 cursor-pointer brightness-95 hover:brightness-100">
+                        <Link to="/booking" className="p-3 bg-orange-100 rounded-full text-orange-800 cursor-pointer brightness-95 hover:brightness-100">
                             <MdElectricScooter size={24} />
-                        </div>
+                        </Link>
                         <div className="p-3 bg-orange-100 rounded-full text-orange-800 cursor-pointer brightness-95 hover:brightness-100">
                             <BiBell size={24} />
                         </div>
@@ -98,7 +98,7 @@ const Header = () => {
 
                         {
                             dropdownOpened &&
-                            <DropdownMenu />
+                            <DropdownMenu handleLogOut={handleLogOut} />
                         }
                     </div>
                 )

@@ -46,11 +46,11 @@ const Booking = () => {
                 {showPickupPointModal && <PickupPointModal pickupPoint={currentPickupPoint} setShowPickupPointModal={setShowPickupPointModal} />}
 
                 <div className="flex items-center space-x-4 mb-5 w-full">
-                    <div className="space-y-1 w-full">
+                    <div className="space-y-1 w-[300px]">
                         <p className='font-semibold'>Where: </p>
                         {isLoaded ? <GoogleMapSearch setTarget={(coords) => { setTarget(coords); panTo(coords) }} /> : <p>Is Loading...</p>}
                     </div>
-                    <div className="space-y-1 w-full">
+                    {/* <div className="space-y-1 w-full">
                         <div className='font-semibold text-white'>nothing</div>
                         <input className='w-full rounded-md bg-gray-100  border-transparent' type="text" placeholder='Street' />
                     </div>
@@ -61,7 +61,7 @@ const Booking = () => {
                     <div className="space-y-1 w-full">
                         <div className='font-semibold text-white'>nothing</div>
                         <input className='w-full rounded-md bg-gray-100  border-transparent' type="text" placeholder='7:30' />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex items-center space-x-5 text-xs">
                     <div className="flex items-center space-x-2 text-gray-400">
@@ -99,7 +99,18 @@ const Booking = () => {
                     </div>
                     <div className="w-full relative flex items-center h-full rounded-xl border border-black overflow-hidden group">
                         <div onClick={toggleShowAvailableScooters} className={`w-full h-full absolute left-0 top-0 bg-blue-500 ${showAvailableScooters && "translate-x-[-100%]"} transition-all duration-200 ease-in-out`}>
-                            <Map mapRef={mapRef} target={target} isLoaded={isLoaded} pickupPoints={pickupPoints} setPickupPoints={setPickupPoints} />
+                            <Map mapRef={mapRef} target={target}
+                                isLoaded={isLoaded}
+                                pickupPoints={pickupPoints}
+                                setPickupPoints={setPickupPoints}
+                                params={{
+
+                                    showPickupPoints: true,
+                                    showScooters: false,
+                                    clickableMarkers: true,
+                                    showDirections: true
+                                }
+                                } />
                         </div>
                         <div className={`w-full h-full bg-red-500 absolute left-0 top-0 translate-x-[100%] ${showAvailableScooters && "translate-x-[0%]"} transition-all duration-200 ease-in-out`}>
 

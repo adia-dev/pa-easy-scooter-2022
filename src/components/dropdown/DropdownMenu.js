@@ -4,9 +4,10 @@ import { FaArrowLeft, FaChevronRight, FaCog, FaMoon, FaSignOutAlt, FaSun } from 
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { AuthContext } from "../../core/AuthProvider";
+import { auth } from "../../core/base";
 import './_Dropdown.css';
 
-const DropdownMenu = () => {
+const DropdownMenu = ({ }) => {
     const { t } = useTranslation();
 
     const [activeMenu, setActiveMenu] = useState('main')
@@ -67,7 +68,9 @@ const DropdownMenu = () => {
                     <DropdownItem redirectTo="/" leftIcon={<FaMoon />} rightIcon={<FaChevronRight />}>{t('Option 4')}</DropdownItem>
                     <DropdownItem goToMenu={"theme"} redirectTo="/" leftIcon={<FaMoon />} rightIcon={<FaChevronRight />}>{t('Thème')}</DropdownItem>
                     <DropdownItem redirectTo="/" leftIcon={<FaMoon />} rightIcon={<FaChevronRight />}>{t('Option 5')}</DropdownItem>
-                    <DropdownItem redirectTo="/" leftIcon={<FaSignOutAlt />} rightIcon={<FaChevronRight />}>{t('Log out')}</DropdownItem>
+                    <div onClick={() => auth.signOut()}>
+                        <DropdownItem redirectTo="/" leftIcon={<FaSignOutAlt />} rightIcon={<FaChevronRight />}>{t('Log out')}</DropdownItem>
+                    </div>
                 </div>
                 {/* <DropdownItem redirectTo="/" leftIcon={<FaCog />} rightIcon={<FaChevronRight />}>{t('Hello')}</DropdownItem>
             <DropdownItem redirectTo="/" leftIcon={<FaCog />} rightIcon={<FaChevronRight />}>{t('Hello')}</DropdownItem> */}

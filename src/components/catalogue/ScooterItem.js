@@ -8,10 +8,13 @@ const ScooterItem = ({ scooter, scooters, cartItems, setCartItems, cartId }) => 
 
 
     const handleAddItemToCart = (itemId) => {
-
+        console.log({
+            shopping_cart_id: cartId,
+            product_id: itemId
+        });
 
         const addItemToCart = async () => {
-            const data = await axios.post(process.env.REACT_APP_GOOGLE_BASE_URL + `cart/product`, {
+            await axios.post(process.env.REACT_APP_GOOGLE_BASE_URL + 'cart/product', {
                 shopping_cart_id: cartId,
                 product_id: itemId
             })

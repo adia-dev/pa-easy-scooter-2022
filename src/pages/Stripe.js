@@ -24,20 +24,18 @@ const Stripe = ({ user, setCheckoutOpened, cartItems, amount, scooter }) => {
           (
             <div key={"stripe-item-" + i} className="py-4 px-2 border-t flex items-center justify-between">
               <p>{item.name}</p>
-              <span>$ {item.price_per_units}</span>
+              <span>€ {item.price_per_units}</span>
             </div>
           ))
         }
 
         <div className="flex justify-between items-center my-5">
           <span className="text-gray-500">Montant total</span>
-          <p className="font-semibold">$ {amount}</p>
+          <p className="font-semibold">€ {parseInt(amount)}</p>
         </div>
 
         <span className="text-gray-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro
-          repellendus dolorem ipsum labore omnis autem modi dignissimos,
-          assumenda delectus hic.
+
         </span>
 
         <div className="w-full border-b py-5 mb-3"></div>
@@ -46,7 +44,7 @@ const Stripe = ({ user, setCheckoutOpened, cartItems, amount, scooter }) => {
         <span className="text-gray-500">
           Veuillez entrer vos informations bancaires :
         </span>
-        {<StripeContainer setCheckoutOpened={setCheckoutOpened} amount={amount} scooter={scooter} />}
+        {<StripeContainer setCheckoutOpened={setCheckoutOpened} amount={parseInt(amount)} scooter={scooter} />}
       </div>
     </div>
   );

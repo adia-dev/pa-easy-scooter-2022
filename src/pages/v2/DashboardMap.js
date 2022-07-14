@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 
 import { useLoadScript } from '@react-google-maps/api'
+import { t } from 'i18next'
 import { BiStoreAlt } from 'react-icons/bi'
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdElectricScooter } from 'react-icons/md'
@@ -35,17 +36,17 @@ const DashboardMap = () => {
   return (
     <div className='w-screen h-screen relative'>
       <div className=" flex-col  absolute top-10 z-[100] left-0">
-        <div onClick={() => navigate("/v2/dashboard")} className="m-5 font-semibold text-sm opacity-85 space-x-3 cursor-pointer hover:brightness-95 transition active:scale-95 bg-blue-500 text-white px-3 py-2 flex items-center rounded-lg">
+        <div onClick={() => navigate("/dashboard")} className="m-5 font-semibold text-sm opacity-85 space-x-3 cursor-pointer hover:brightness-95 transition active:scale-95 bg-blue-500 text-white px-3 py-2 flex items-center rounded-lg">
           <FaArrowLeft />
-          <span>Dashboard</span>
+          <span>{t`Dashboard`}</span>
         </div>
         <div className="mx-5 mb-2 mt-10 font-semibold text-sm opacity-85 space-x-3 cursor-help bg-yellow-500 text-white px-3 py-2 flex items-center rounded-lg">
           <MdElectricScooter />
-          <span>Scooters</span>
+          <span>{t`Scooters`}</span>
         </div>
         <div className="mx-5 font-semibold text-sm opacity-85 space-x-3 cursor-help bg-purple-500 text-white px-3 py-2 flex items-center rounded-lg">
           <BiStoreAlt />
-          <span>Pickup Points</span>
+          <span>{t`Pickup Points`}</span>
         </div>
 
       </div>

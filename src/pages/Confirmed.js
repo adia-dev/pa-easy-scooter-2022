@@ -1,14 +1,18 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BiCheck } from 'react-icons/bi'
+import QRCode from "react-qr-code"
 import { useParams } from 'react-router-dom'
 import HeaderLogo from '../components/HeaderLogo'
+import { AuthContext } from '../core/AuthProvider'
 
 const Confirmed = ({ scooterId }) => {
 
     const { id } = useParams()
 
     const [scooter, setScooter] = useState(null)
+
+    const { currentUser } = useContext(AuthContext)
 
     useEffect(() => {
 
@@ -25,7 +29,7 @@ const Confirmed = ({ scooterId }) => {
 
 
     return (
-        <div className='w-screen h-screen overflow-x-hidden bg-gray-200 '>
+        <div className='w-screen h-screen overflow-x-hidden bg-gray-100 '>
             <header className='h-[80px]  relative w-screen flex items-center px-5 text-black'>
                 <HeaderLogo />
             </header>
@@ -101,7 +105,7 @@ const Confirmed = ({ scooterId }) => {
                             <span className='font-semibold text-xl text-blue-800'>Ticket</span>
                             <span>Veuillez présenter ce code à l'ecran de la trotinette</span>
                             <div className="flex items-cetner space-x-5">
-                                <img className='w-[200px] aspect-square object-contain' src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/2048px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="" />
+                                <QRCode value={`${process.env.REACT_APP_GOOGLE_BASE_URL}unlock/${currentUser.data.id}/${scooter?.id}`} />
                                 <div className='flex flex-col space-y-5 py-5'>
                                     <span className='font-semibold text-gray-400 text-sm'>SCAN THIS</span>
                                     <span className='font-semibold text-blue-800 '>{scooter?.model_name}</span>

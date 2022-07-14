@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { t } from "i18next";
 import { useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +33,7 @@ export default function PaymentForm({ amount, setCheckoutOpened, scooter = null 
 
   const handlePaiementSuccess = () => {
     setCheckoutOpened(false)
-    !!scooter && navigate("/v2/booking/confirmed/" + scooter.id)
+    !!scooter && navigate("/booking/confirmed/" + scooter.id)
 
   }
 
@@ -80,7 +81,7 @@ export default function PaymentForm({ amount, setCheckoutOpened, scooter = null 
           />
 
           <button className="absolute left-0 bottom-0 bg-blue-600 justify-center text-white w-full py-4 font-bold flex items-center space-x-5">
-            <span>PAYER {amount}€</span>
+            <span>{t`PAYER`} {amount}€</span>
             <AiOutlineArrowRight size={24} />
           </button>
         </form>
